@@ -30,9 +30,26 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                     <?php if ($this->session->userdata('email')) : ?>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="#">Hello, <?= $name ?></a></li>
+
+
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-warning " data-toggle="dropdown">
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Hello, <?= $name ?></a></li>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item " href="<?= base_url('user/edit') ?>"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                                <?php if ($this->session->userdata('role_id') == 1) : ?>
+                                    <a class="dropdown-item " href="<?= base_url('admin') ?>"><i class="fas fa-users-cog"></i> Admin Menu</a>
+                                <?php else : ?>
+                                <?php endif; ?>
+                                <hr>
+                                <a class="dropdown-item" href="<?= base_url('user/logout') ?>"><i class="fas fa-sign-in-alt"></i> Log Out</a>
+                            </div>
+                        </div>
+
                     <?php else : ?>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('user/login'); ?>"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+
                     <?php endif; ?>
                 </ul>
             </div>
