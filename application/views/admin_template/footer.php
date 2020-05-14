@@ -59,14 +59,26 @@
             url: "<?= base_url('admin/deleteProduct') ?>",
             type: 'post',
             data: {
-                'id' : $id
+                'id': $id
             },
             success: function($e) {
-                console.log('ini E = '+$e);
                 document.location.href = "<?= base_url('admin/productlist') ?>";
             }
         })
-        alert('id lo ' + $id);
+    }
+
+    function editProduct($id) {
+        event.preventDefault();
+        $.ajax({
+            url: "<?= base_url('admin/productlist') ?>",
+            type: 'post',
+            data: {
+                'id': $id
+            },
+            success: function($e) {
+                document.location.href = "<?= base_url('admin/productlist') ?>";
+            }
+        })
     }
 </script>
 <script>

@@ -46,9 +46,7 @@
                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#details<?= $p['item_id'] ?>">
                                              <i class="fas fa-fw fa-info-circle"></i>
                                          </button>
-                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?= $p['item_id'] ?>">
-                                             <i class="fas fa-fw fa-edit"></i>
-                                         </button>
+                                         <a href="<?= base_url('admin/editProduct/') . $p['item_id'] ?>" class="btn btn-primary"><i class="fas fa-fw fa-edit text-light"></i></a>
                                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $p['item_id'] ?>">
                                              <i class="fas fa-fw fa-trash-alt"></i>
                                          </button>
@@ -91,8 +89,7 @@
                                                          </div>
                                                      </div>
                                                      <div class="modal-footer">
-                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                         <button type="button" class="btn btn-primary">Save changes</button>
+                                                         <button type="button" class="btn btn-primary">OK</button>
                                                      </div>
                                                  </div>
                                              </div>
@@ -116,13 +113,13 @@
                                                                  <img src="<?= base_url(); ?>assets/img/product/<?= $p['item_image'] ?>" class="img-fluid" alt="">
                                                              </div>
                                                              <div class="col col-md text-center">
-                                                                 <h1>Are you Sure Want to Delete??</h1>
+                                                                 <h1 class="text-danger">Are you Sure Want to Delete??</h1>
                                                              </div>
                                                          </div>
                                                      </div>
                                                      <div class="modal-footer">
                                                          <button type="button" class="btn btn-primary " data-dismiss="modal" onclick="deleteProduct(<?= $p['item_id'] ?>)">Delete</button>
-                                                         <button type="button" class="btn btn-secondary">Back</button>
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                                                      </div>
                                                  </div>
                                              </div>
