@@ -21,6 +21,8 @@
 <script src="<?= base_url('vendor/agency/'); ?>assets/mail/contact_me.js"></script>
 <!-- Core theme JS-->
 <script src="<?= base_url('vendor/agency/'); ?>js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

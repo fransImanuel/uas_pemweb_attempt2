@@ -12,13 +12,16 @@ class User extends CI_Controller
     public function index()
     {
         if( $this->session->userdata('email') ){
-            $data['user'] = $this->db->get('users', ['email' => $this->session->userdata('email')])->row_array();
+            // var_dump($this->session->userdata());
+            // die;
+            $data['user'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
             $data['name'] = $data['user']['first_name'];
-            // var_dump($data['user']);die;
+            // var_dump($data['user'], $data['name']);die;
         }else{
             $data['name'] = '';
         }
 
+        $data['product'] = $this->db->get('item')->result_array();
         // var_dump($data['user']);die;
 
         $this->load->view('template/header', $data);
@@ -28,7 +31,9 @@ class User extends CI_Controller
     
     public function login()
     {
-
+        if( $this->session->userdata('email') ){
+            redirect('user');
+        }
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
         if ($this->form_validation->run() == FALSE) {
@@ -76,7 +81,9 @@ class User extends CI_Controller
     }
 
     public function registration(){
-
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[users.email]', [
             'is_unique' => 'This Email Has Already Registered!'
         ]);
@@ -118,6 +125,9 @@ class User extends CI_Controller
     }
 
     public function logout(){
+        if ( !$this->session->userdata('email') ) {
+            redirect('user');
+        }
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
 
