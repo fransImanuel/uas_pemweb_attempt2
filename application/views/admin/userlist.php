@@ -64,8 +64,14 @@
                                                                  <img src="<?= base_url(); ?>assets/img/profile/<?= $u['profile_picture'] ?>" class="img-fluid" alt="">
                                                              </div>
                                                              <div class="col col-md text-center">
-                                                                  <h3>Nama</h3>
-                                                                  <p class="muted-text">gender</p>
+                                                                 <h3><?= $u['first_name'] ?> <?= $u['last_name'] ?></h3>
+                                                                 <ul class="list-inline">
+                                                                     <li>Phone Number: <?= $u['phone_number'] ?></li>
+                                                                     <li>City: <?= $u['city'] ?></li>
+                                                                     <li>Post Code: <?= $u['post_code'] ?></li>
+                                                                     <li>Birth Day: : <?= $u['birthday'] ?></li>
+                                                                     <li>Address: <?= $u['address'] ?></li>
+                                                                 </ul>
                                                              </div>
                                                          </div>
                                                      </div>
