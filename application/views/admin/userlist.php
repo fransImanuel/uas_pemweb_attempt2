@@ -64,11 +64,12 @@
                                                                  <img src="<?= base_url(); ?>assets/img/profile/<?= $u['profile_picture'] ?>" class="img-fluid" alt="">
                                                              </div>
                                                              <div class="col col-md text-center">
-                                                                 ...
+                                                                  <h3>Nama</h3>
+                                                                  <p class="muted-text">gender</p>
                                                              </div>
                                                          </div>
                                                      </div>
-                                                     <div class="modal-footer">
+                                                     <div class="modal-footer  mt-4">
                                                          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                                                      </div>
                                                  </div>
