@@ -92,7 +92,16 @@ class Admin extends CI_Controller
                 Your Product has been added!</div>');
             redirect('admin/create');
         }
+    }
 
+    public function productlist(){
 
+        $data['title'] = 'Admin | Create Product ';
+        $data['category'] = $this->db->get('category')->result_array();
+        
+        $this->load->view('admin_template/header', $data);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/create', $data);
+        $this->load->view('admin_template/footer');
     }
 }

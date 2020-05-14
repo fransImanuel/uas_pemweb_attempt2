@@ -23,7 +23,7 @@
                     <li>
                         <a href="<?= base_url('admin/create') ?>">
                             <i class="now-ui-icons ui-1_simple-add"></i>
-                            <p>Create Product</p>
+                            <p>Add Product</p>
                         </a>
                     </li>
                     <li>
