@@ -89,7 +89,17 @@ class User extends CI_Controller
         } else {
             $output .= '
             <tr>
-                <td colspan="5">No data found</td>
+                <td class="text-center">
+                    <img class="" style="
+                            width: 50%; 
+                            display: block;
+                            margin-left: auto;" 
+                        src="' . base_url() . 'assets/img/misc/no_data.svg" alt="No Data Found">
+                    <h4 style="
+                            width: 50%; 
+                            display: block;
+                            margin-left: auto;" >No Product</h4>        
+                </td>
             </tr>
             ';
         }
