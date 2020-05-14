@@ -3,101 +3,66 @@
     <div class="container">
         <div class="masthead-subheading">Welcome To Our Shop!</div>
         <div class="masthead-heading text-uppercase">We Prepare All Good Stuff For You!!</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">Shop Now!</a>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">Explore Now!</a>
     </div>
 </header>
 <!-- Portfolio Grid-->
 <section class="page-section bg-light" id="portfolio">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Portfolio</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Find Your Favorite Bag</h2>
+            <h3 class="section-subheading text-muted">Best Place For Your Fashion</h3>
+            <!-- Search form -->
+            <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan active-cyan-2 mt-2 mb-5">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+            </form>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+            <?php foreach ($product as $p) : ?>
+                <div class="col-lg-4 col-sm-6 mb-4 square">
+                    <div class="portfolio-item">
+                        <a class="portfolio-link" data-toggle="modal" href="#modal-product<?= $p['item_id'] ?>">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid img-thumbnail" src="<?= base_url(''); ?>assets/img/product/<?= $p['item_image'] ?>" alt="" />
+                        </a>
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading"><?= ucwords($p['item_name']) ?></div>
+                            <div class="portfolio-caption-subheading text-muted"><?= $p['item_short_desc'] ?></div>
                         </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/01-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Threads</div>
-                        <div class="portfolio-caption-subheading text-muted">Illustration</div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                <!-- Modal 1-->
+                <div class="portfolio-modal modal fade" id="modal-product<?= $p['item_id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="close-modal" data-dismiss="modal"><img src="<?= base_url('vendor/agency/'); ?>assets/img/close-icon.svg" /></div>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="modal-body">
+                                            <!-- Project Details Go Here-->
+                                            <h2 class="text-uppercase"><?= ucwords($p['item_name']) ?></h2>
+                                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                            <img class="img-fluid d-block mx-auto" src="<?= base_url(); ?>assets/img/product/<?= $p['item_image'] ?>" alt="" />
+                                            <p class="text-muted"><?= $p['item_short_desc'] ?></p>
+                                            <p><?= $p['item_long_desc'] ?></p>
+                                            <ul class="list-inline">
+                                                <li>Price: Rp. <?= $p['item_price'] ?></li>
+                                                <li>Weight: <?= $p['item_weight'] ?></li>
+                                                <li>Remaining Stock: <?= $p['item_stock'] ?></li>
+                                            </ul>
+                                            <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/02-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Explore</div>
-                        <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/03-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Finish</div>
-                        <div class="portfolio-caption-subheading text-muted">Identity</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/04-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Lines</div>
-                        <div class="portfolio-caption-subheading text-muted">Branding</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/05-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Southwest</div>
-                        <div class="portfolio-caption-subheading text-muted">Website Design</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                        </div>
-                        <img class="img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/06-thumbnail.jpg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Window</div>
-                        <div class="portfolio-caption-subheading text-muted">Photography</div>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -266,33 +231,7 @@
 
 <!-- Kumpulan semua modalnya -->
 
-<!-- Modal 1-->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal"><img src="<?= base_url('vendor/agency/'); ?>assets/img/close-icon.svg" /></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here-->
-                            <h2 class="text-uppercase">Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-fluid d-block mx-auto" src="<?= base_url('vendor/agency/'); ?>assets/img/portfolio/01-full.jpg" alt="" />
-                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                            <ul class="list-inline">
-                                <li>Date: January 2020</li>
-                                <li>Client: Threads</li>
-                                <li>Category: Illustration</li>
-                            </ul>
-                            <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Modal 2-->
 <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">

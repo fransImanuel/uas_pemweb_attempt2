@@ -21,6 +21,7 @@ class User extends CI_Controller
             $data['name'] = '';
         }
 
+        $data['product'] = $this->db->get('item')->result_array();
         // var_dump($data['user']);die;
 
         $this->load->view('template/header', $data);

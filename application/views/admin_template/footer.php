@@ -53,6 +53,33 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
+
+    function deleteProduct($id) {
+        $.ajax({
+            url: "<?= base_url('admin/deleteProduct') ?>",
+            type: 'post',
+            data: {
+                'id': $id
+            },
+            success: function($e) {
+                document.location.href = "<?= base_url('admin/productlist') ?>";
+            }
+        })
+    }
+
+    function editProduct($id) {
+        event.preventDefault();
+        $.ajax({
+            url: "<?= base_url('admin/productlist') ?>",
+            type: 'post',
+            data: {
+                'id': $id
+            },
+            success: function($e) {
+                document.location.href = "<?= base_url('admin/productlist') ?>";
+            }
+        })
+    }
 </script>
 <script>
 

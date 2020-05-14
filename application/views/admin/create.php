@@ -20,7 +20,7 @@
              <div class="card card-chart">
                  <div class="card-header">
                      <h5 class="card-category">Global Sales</h5>
-                     <h4 class="card-title">Shipped Products</h4>
+                     <h4 class="card-title">Add Products</h4>
                  </div>
                  <div class="card-body m-4">
                      <div class="chart-area">

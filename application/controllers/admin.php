@@ -21,23 +21,16 @@ class Admin extends CI_Controller
     }
 
     public function index(){
-        
-        $this->load->view('admin_template/header');
+        $data['title'] = "Admin | Dashboard";
+        $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/index');
-        $this->load->view('admin_template/footer');
-    }
-
-    public function chart(){
-        $this->load->view('admin_template/header');
-        $this->load->view('admin_template/sidebar');
-        $this->load->view('admin/chart');
         $this->load->view('admin_template/footer');
     }
     
     public function create(){
 
-        $data['title'] = 'Admin | Create Product ';
+        $data['title'] = 'Admin | Add Product ';
         $data['category'] = $this->db->get('category')->result_array();
         // var_dump($data['category']);die;
 
@@ -92,7 +85,116 @@ class Admin extends CI_Controller
                 Your Product has been added!</div>');
             redirect('admin/create');
         }
+    }
 
+    public function productlist(){
 
+        $data['title'] = 'Admin | List Product ';
+        $data['category'] = $this->db->get('category')->result_array();
+
+        $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , category.category_name');
+        // $this->db->from('item');
+        $this->db->join('category', 'category.category_id = item.item_category');
+        // $this->db->where('item_id', 1);
+        $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_array();
+        // var_dump($data['product']);die;
+
+        $this->load->view('admin_template/header', $data);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/productlist', $data);
+        $this->load->view('admin_template/footer');
+    }
+
+    public function deleteProduct(){
+        $id_product = $this->input->post('id');
+        // var_dump($id_product);die;
+        $data = [
+            'item_is_active' => 0
+        ];
+
+        $this->db->where('item_id', $id_product);
+        $this->db->update('item', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Product Deleted!</div>');
+    }
+
+    public function editProduct(){
+
+        $data['id'] = $this->uri->segment(3);
+
+        $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , item.item_Category, category.category_name');
+        $this->db->join('category', 'category.category_id = item.item_category');
+        $data['product'] = $this->db->get_where('item', ['item_id' => $data['id']])->row_array();
+        $data['category'] = $this->db->get('category')->result_array();
+        $data['title'] = "Admin | Edit Products";
+
+        $this->form_validation->set_rules('productname', 'Email', 'required|trim');
+        $this->form_validation->set_rules('productprice', 'Product Price', 'required|trim|numeric');
+        $this->form_validation->set_rules('productstock', 'Stock', 'required|trim|numeric');
+        $this->form_validation->set_rules('productweight', 'Weight', 'required|trim|numeric');
+        $this->form_validation->set_rules('shortproductdesc', 'Short Product Description', 'required|trim|max_length[255]');
+        $this->form_validation->set_rules('category', 'Cateogry', 'required|trim|numeric');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('admin_template/header', $data);
+            $this->load->view('admin_template/sidebar');
+            $this->load->view('admin/edit', $data);
+            $this->load->view('admin_template/footer');
+        }else{
+            $config['upload_path'] = './assets/img/product/';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size']     = '2048';
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            // var_dump($this->upload->do_upload('productimage'));die;
+
+            if ($this->upload->do_upload('productimage')) {
+                $new_image = $this->upload->data('file_name');
+
+                $edit_data = [
+                    'item_name' => $this->input->post('productname'),
+                    'item_image' => $new_image,
+                    'item_price' => $this->input->post('productprice'),
+                    'item_stock' => $this->input->post('productstock'),
+                    'item_weight' => $this->input->post('productweight'),
+                    'item_long_desc' => $this->input->post('longproductdesc'),
+                    'item_short_desc' => $this->input->post('shortproductdesc'),
+                    'item_category' => $this->input->post('category')
+                ];
+                $this->db->where('item_id', $data['id']);
+                $this->db->update('item', $edit_data);
+            } else {
+                // var_dump($data['id']);die;
+                $edit_data = [
+                    'item_name' => $this->input->post('productname'),
+                    'item_price' => $this->input->post('productprice'),
+                    'item_stock' => $this->input->post('productstock'),
+                    'item_weight' => $this->input->post('productweight'),
+                    'item_long_desc' => $this->input->post('longproductdesc'),
+                    'item_short_desc' => $this->input->post('shortproductdesc'),
+                    'item_category' => $this->input->post('category')
+                ];
+                // var_dump($data);
+                // die;
+                $this->db->where('item_id', $data['id']);
+                $this->db->update('item', $edit_data);
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Your Product has been Updated!</div>');
+            redirect('admin/productlist') ;
+        }
+    }
+
+    public function userlist(){
+
+        $data['title'] = "Admin | User List";
+        $data['users'] = $this->db->get('users')->result_array();
+        // var_dump($date);die;
+        $this->load->view('admin_template/header', $data);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/userlist', $data);
+        $this->load->view('admin_template/footer');
     }
 }

@@ -23,25 +23,19 @@
                     <li>
                         <a href="<?= base_url('admin/create') ?>">
                             <i class="now-ui-icons ui-1_simple-add"></i>
-                            <p>Create Product</p>
+                            <p>Add Product</p>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/read') ?>">
+                        <a href="<?= base_url('admin/productlist') ?>">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Product List</p>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/update') ?>">
-                            <i class="now-ui-icons design-2_ruler-pencil"></i>
-                            <p>Update Product</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('admin/delete') ?>">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                            <p>Delete Product</p>
+                        <a href="<?= base_url('admin/userlist') ?>">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Registered List</p>
                         </a>
                     </li>
                     <li class="active-pro">
