@@ -10140,6 +10140,13 @@ header.masthead .masthead-heading {
   position: relative;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
+}
+#portfolio .portfolio-item .portfolio-link img{
+  width: 100%;
+  height: 200px;
+  /* background-color: red; */
+  object-fit: contain;
 }
 #portfolio .portfolio-item .portfolio-link .portfolio-hover {
   display: flex;

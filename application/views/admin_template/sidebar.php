@@ -33,15 +33,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/update') ?>">
-                            <i class="now-ui-icons design-2_ruler-pencil"></i>
-                            <p>Update Product</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('admin/delete') ?>">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                            <p>Delete Product</p>
+                        <a href="<?= base_url('admin/userlist') ?>">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Registered List</p>
                         </a>
                     </li>
                     <li class="active-pro">

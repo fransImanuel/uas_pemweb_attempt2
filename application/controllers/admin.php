@@ -186,4 +186,15 @@ class Admin extends CI_Controller
             redirect('admin/productlist') ;
         }
     }
+
+    public function userlist(){
+
+        $data['title'] = "Admin | User List";
+        $data['users'] = $this->db->get('users')->result_array();
+        // var_dump($date);die;
+        $this->load->view('admin_template/header', $data);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/userlist', $data);
+        $this->load->view('admin_template/footer');
+    }
 }
