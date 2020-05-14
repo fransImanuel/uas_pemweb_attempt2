@@ -37,7 +37,7 @@ class Admin extends CI_Controller
     
     public function create(){
 
-        $data['title'] = 'Admin | Create Product ';
+        $data['title'] = 'Admin | Add Product ';
         $data['category'] = $this->db->get('category')->result_array();
         // var_dump($data['category']);die;
 
@@ -96,12 +96,29 @@ class Admin extends CI_Controller
 
     public function productlist(){
 
-        $data['title'] = 'Admin | Create Product ';
+        $data['title'] = 'Admin | List Product ';
         $data['category'] = $this->db->get('category')->result_array();
-        
+
+        $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, category.category_name');
+        $this->db->from('item');
+        $this->db->join('category', 'category.category_id = item.item_category');
+        $data['product'] = $this->db->get()->result_array();
+        // var_dump($query);die;
+
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
-        $this->load->view('admin/create', $data);
+        $this->load->view('admin/productlist', $data);
         $this->load->view('admin_template/footer');
+    }
+
+    public function deleteProduct(){
+        $id_product = $this->input->post('id');
+        $data = [
+            'item_id' => 65
+        ];
+        // var_dump($id_product);die;
+        // $this->db->where('item_id', 1);
+        $this->db->delete('item', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Product Deleted!</div>');
     }
 }

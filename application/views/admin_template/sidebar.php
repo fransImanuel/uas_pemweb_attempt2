@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/read') ?>">
+                        <a href="<?= base_url('admin/productlist') ?>">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Product List</p>
                         </a>

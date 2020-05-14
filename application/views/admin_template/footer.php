@@ -53,6 +53,21 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
+
+    function deleteProduct($id) {
+        $.ajax({
+            url: "<?= base_url('admin/deleteProduct') ?>",
+            type: 'post',
+            data: {
+                'id' : $id
+            },
+            success: function($e) {
+                console.log('ini E = '+$e);
+                document.location.href = "<?= base_url('admin/productlist') ?>";
+            }
+        })
+        alert('id lo ' + $id);
+    }
 </script>
 <script>
 
