@@ -17,10 +17,11 @@
             </nav>
             <!-- End Navbar -->
             <div class="panel-header panel-header-lg">
-                <canvas id="bigDashboardChart"></canvas>
+                <canvas id="bigDashboardChart" data-ea='1'></canvas>
             </div>
             <div class="content">
                 <div class="row">
+                    <!-- card1 -->
                     <div class="col-lg-4">
                         <div class="card card-chart">
                             <div class="card-header">
@@ -50,6 +51,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- card2 -->
                     <div class="col-lg-4 col-md-6">
                         <div class="card card-chart">
                             <div class="card-header">

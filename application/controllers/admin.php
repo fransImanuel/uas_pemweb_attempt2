@@ -23,6 +23,12 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = "Admin | Dashboard";
+
+        $this->db->select('i.item_name, SUM(h.item_quantity)');
+        $this->db->join('');
+        $this->db->get();
+
+
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/index');
@@ -236,9 +242,7 @@ class Admin extends CI_Controller
         $data['category'] = $this->db->get('category')->result_array();
 
         $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , category.category_name');
-        // $this->db->from('item');
         $this->db->join('category', 'category.category_id = item.item_category');
-        // $this->db->where('item_id', 1);
         $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_array();
         // var_dump($data['product']);die;
 
