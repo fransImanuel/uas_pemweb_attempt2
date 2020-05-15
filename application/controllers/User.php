@@ -208,7 +208,7 @@ class User extends CI_Controller
 
     public function editpage($id)
 	{
-        if ($this->session->userdata('user_id') != $id) {
+        if ($this->session->userdata('user_id') != $id || $this->session->userdata('role_id') == 1) {
             redirect('user');
         }
         $query = $this->db->query("SELECT * FROM users WHERE user_id='".$id."'");
