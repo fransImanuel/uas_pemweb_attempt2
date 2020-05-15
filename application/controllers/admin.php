@@ -24,9 +24,9 @@ class Admin extends CI_Controller
     {
         $data['title'] = "Admin | Dashboard";
 
-        $this->db->select('i.item_name, SUM(h.item_quantity)');
-        $this->db->join('');
-        $this->db->get();
+        // $this->db->select('i.item_name, SUM(h.item_quantity)');
+        // $this->db->join('');
+        // $this->db->get();
 
 
         $this->load->view('admin_template/header', $data);
