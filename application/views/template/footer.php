@@ -53,5 +53,20 @@
                 load_data();
             }
         });
+
+
     });
+
+    function sorting() {
+        //flag 0 = asc, flag 1 = desc
+        $('#sort').data('flag');
+
+        if ($('#sort').data('flag') == 1) {
+            $('#sort').data('flag', 2)
+            // $.ajax buat desc
+        } else {
+            $('#sort').data('flag', 1)
+            // $.ajax buat asc
+        }
+    }
 </script>
