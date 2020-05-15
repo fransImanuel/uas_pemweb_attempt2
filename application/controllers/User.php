@@ -143,7 +143,7 @@ class User extends CI_Controller
                 ];
                 $this->session->set_userdata($data);
                  //var_dump($this->session->userdata(['email']));
-                die;
+                // die;
                 if ($user['role_id'] == 1) {
                     redirect('admin');
                 } else {
