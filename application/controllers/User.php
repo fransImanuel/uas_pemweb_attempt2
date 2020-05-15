@@ -41,7 +41,8 @@ class User extends CI_Controller
         if ($data->num_rows() > 0) {
             $i = 1;
             foreach ($data->result() as $p) {
-                $output .= '
+                if ($p->item_is_active) {
+                    $output .= '
                 <div class="col-lg-4 col-sm-6 mb-4 square">
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-toggle="modal" href="#modal-product' . $p->item_id . '">
@@ -85,6 +86,7 @@ class User extends CI_Controller
                     </div>
                 </div>
                 ';
+                }
             }
         } else {
             $output .= '
