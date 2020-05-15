@@ -83,8 +83,8 @@ class Admin extends CI_Controller
                                              <i class="fas fa-fw fa-info-circle"></i>
                                          </button>
                                          <a href="' . base_url('admin/editProduct/') . $p->item_id . '" class="btn btn-primary"><i class="fas fa-fw fa-edit text-light"></i></a>
-                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete' . $p->item_id . '">
-                                             <i class="fas fa-fw fa-trash-alt"></i>
+                                         <button type="button" class="btn ' . $color . '" data-toggle="modal" data-target="#delete' . $p->item_id . '">
+                                             <i class="fas fa-fw ' . $logo . '"></i>
                                          </button>
                                      </td>
                                      <!-- Modal Details -->

@@ -67,14 +67,14 @@
                                  <?php echo form_error('category', '<small class="text-danger ">   *', '</small>'); ?>
                                  <select class="form-control" id="category" name="category">
                                      <option value="<?= $product['item_Category']   ?>">
-                                         <?= $product['category_name']?>
+                                         <?= $product['category_name'] ?>
                                      </option>
                                      <?php foreach ($category as $c) : ?>
-                                        <?php if($c['category_id'] == $product['item_category'] ): ?>
-                                            <?php continue; ?>
-                                        <?php else: ?>
-                                            <option value="<?= $c['category_id'] ?>"><?= $c['category_name'] ?></option>
-                                        <?php endif; ?>
+                                         <?php if ($c['category_id'] == $product['item_category']) : ?>
+                                             <?php continue; ?>
+                                         <?php else : ?>
+                                             <option value="<?= $c['category_id'] ?>"><?= $c['category_name'] ?></option>
+                                         <?php endif; ?>
                                      <?php endforeach; ?>
 
                                  </select>
