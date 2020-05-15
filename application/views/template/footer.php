@@ -23,10 +23,6 @@
 <script src="<?= base_url('vendor/agency/'); ?>js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
-</body>
-
-</html>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -47,6 +43,8 @@
 
         $('#search_text').keyup(function() {
             var search = $(this).val();
+            console.log(search);
+
             if (search != '') {
                 load_data(search);
             } else {
@@ -55,3 +53,6 @@
         });
     });
 </script>
+</body>
+
+</html>
