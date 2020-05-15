@@ -35,10 +35,10 @@
                                     <?php echo form_error('birthday', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control" id="gender" name="gender" value="<?= $detail['gender'] ?>">
+                                    <select class="form-control" id="gender" name="gender">
                                         <option value="">Choose Gender..</option>
-                                        <option value="M">Male</option>
-                                        <option value="F">Female</option>
+                                        <option value="M" <?php if ($detail['gender'] == "M") echo "selected";?>>Male</option>
+                                        <option value="F" <?php if ($detail['gender'] == "F") echo "selected";?>>Female</option>
                                     </select>
                                     <?php echo form_error('gender', '<small class="text-danger ">', '</small>'); ?>
                                 </div>

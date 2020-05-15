@@ -93,14 +93,14 @@ class User extends CI_Controller
             <tr>
                 <td class="text-center">
                     <img class="" style="
-                            width: 50%; 
+                            width: 50%;
                             display: block;
-                            margin-left: auto;" 
+                            margin-left: auto;"
                         src="' . base_url() . 'assets/img/misc/no_data.svg" alt="No Data Found">
                     <h4 style="
-                            width: 50%; 
+                            width: 50%;
                             display: block;
-                            margin-left: auto;" >No Product</h4>        
+                            margin-left: auto;" >No Product</h4>
                 </td>
             </tr>
             ';
@@ -138,7 +138,8 @@ class User extends CI_Controller
             if (password_verify($password, $user['password'])) {
                 $data = [
                     'email' => $user['email'],
-                    'role_id' => $user['role_id']
+                    'role_id' => $user['role_id'],
+                    'user_id' => $user['user_id']
                 ];
                 $this->session->set_userdata($data);
                  //var_dump($this->session->userdata(['email']));
@@ -207,6 +208,9 @@ class User extends CI_Controller
 
     public function editpage($id)
 	{
+        if ($this->session->userdata('user_id') != $id) {
+            redirect('user');
+        }
         $query = $this->db->query("SELECT * FROM users WHERE user_id='".$id."'");
         $data['userDetails'] = $query->result_array();
         $array_hasil = $data['userDetails'];
@@ -221,10 +225,12 @@ class User extends CI_Controller
         $this->load->view('user/edit',$data);
         $this->load->view('template/footer');
     }
-    
+
     public function editUser($id)
 	{
-
+        if ($this->session->userdata('user_id') != $id) {
+            redirect('user');
+        }
 		$post = $this->input->post();
 		$this->user_id = $post['user_id'];
         $this->first_name = $post['first_name'];
@@ -250,7 +256,8 @@ class User extends CI_Controller
 					'gender'		=> $this->gender
 				);
 			$this->db->where($where);
-			$this->db->update('users',$values);  
+            $this->db->update('users',$values);
+            redirect('user');
 		}
 	}
 

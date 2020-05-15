@@ -33,8 +33,6 @@
 <script src="<?= base_url() ?>vendor/nowui/assets/js/core/popper.min.js"></script>
 <script src="<?= base_url() ?>vendor/nowui/assets/js/core/bootstrap.min.js"></script>
 <script src="<?= base_url() ?>vendor/nowui/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Chart JS -->
 <script src="<?= base_url() ?>vendor/nowui/assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
@@ -48,13 +46,14 @@
 
     });
 
-    var bigDashBoardData = []
-    var bigDashBoardLabel = []
-    $bigDashBoardData = <?= $product ?>;
+    var bigDashBoardData = [];
+    var bigDashBoardLabel = [];
+    $bigDashBoardData = <?= json_encode($product)  ?>;
+    $bigDashBoardData = JSON.parse(<?= json_encode($product)  ?>);
 
     for ($i = 0; $i < $bigDashBoardData.length; $i++) {
-        bigDashBoardData.push($bigDashBoardData[$i].sum)
-        bigDashBoardLabel.push($bigDashBoardData[$i].category_name)
+        bigDashBoardData.push($bigDashBoardData[$i].sum);
+        bigDashBoardLabel.push($bigDashBoardData[$i].category_name);
 
     }
 
