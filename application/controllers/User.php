@@ -60,8 +60,8 @@ class User extends CI_Controller
                     'role_id' => $user['role_id']
                 ];
                 $this->session->set_userdata($data);
-                // var_dump($this->session);
-                // die;
+                 //var_dump($this->session->userdata(['email']));
+                die;
                 if ($user['role_id'] == 1) {
                     redirect('admin');
                 } else {
@@ -123,6 +123,55 @@ class User extends CI_Controller
             redirect('user/login');
         }
     }
+
+    public function editpage($id)
+	{
+        $query = $this->db->query("SELECT * FROM users WHERE user_id='".$id."'");
+        $data['userDetails'] = $query->result_array();
+        $array_hasil = $data['userDetails'];
+        $array_hasil = $array_hasil[0];
+        $data2['name'] = $array_hasil['first_name'];
+		//$data['style'] = $this->load->view('include/style', NULL, TRUE);
+		//$data['script'] = $this->load->view('include/script', NULL, TRUE);
+		//$data['navbar'] = $this->load->view('template/navbar_book', NULL, TRUE);
+		//$data['footer'] = $this->load->view('template/footer_book', NULL, TRUE);
+
+        $this->load->view('template/header',$data2);
+        $this->load->view('user/edit',$data);
+        $this->load->view('template/footer');
+    }
+    
+    public function editUser($id)
+	{
+
+		$post = $this->input->post();
+		$this->user_id = $post['user_id'];
+        $this->first_name = $post['first_name'];
+        $this->last_name = $post['last_name'];
+        $this->birthday = $post['birthday'];
+        $this->gender = $post['gender'];
+
+		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');
+        $this->form_validation->set_rules('birthday', 'Birthday', 'required');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->editpage($this->user_id);
+		} else {
+			$where = array(
+				'user_id'		=> $this->user_id
+			);
+			$values = array(
+				    'first_name'	=> $this->first_name,
+					'last_name'		=> $this->last_name,
+					'birthday'		=> $this->birthday,
+					'gender'		=> $this->gender
+				);
+			$this->db->where($where);
+			$this->db->update('users',$values);  
+		}
+	}
 
     public function logout(){
         if ( !$this->session->userdata('email') ) {
