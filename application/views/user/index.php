@@ -15,54 +15,11 @@
             <!-- Search form -->
             <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan active-cyan-2 mt-2 mb-5">
                 <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sm ml-3 w-75" name="search_text" id="search_text" type="text" placeholder="Search" aria-label="Search">
             </form>
         </div>
-        <div class="row">
-            <?php foreach ($product as $p) : ?>
-                <div class="col-lg-4 col-sm-6 mb-4 square">
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#modal-product<?= $p['item_id'] ?>">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid img-thumbnail" src="<?= base_url(''); ?>assets/img/product/<?= $p['item_image'] ?>" alt="" />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"><?= ucwords($p['item_name']) ?></div>
-                            <div class="portfolio-caption-subheading text-muted"><?= $p['item_short_desc'] ?></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal 1-->
-                <div class="portfolio-modal modal fade" id="modal-product<?= $p['item_id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="close-modal" data-dismiss="modal"><img src="<?= base_url('vendor/agency/'); ?>assets/img/close-icon.svg" /></div>
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8">
-                                        <div class="modal-body">
-                                            <!-- Project Details Go Here-->
-                                            <h2 class="text-uppercase"><?= ucwords($p['item_name']) ?></h2>
-                                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                            <img class="img-fluid d-block mx-auto" src="<?= base_url(); ?>assets/img/product/<?= $p['item_image'] ?>" alt="" />
-                                            <p class="text-muted"><?= $p['item_short_desc'] ?></p>
-                                            <p><?= $p['item_long_desc'] ?></p>
-                                            <ul class="list-inline">
-                                                <li>Price: Rp. <?= $p['item_price'] ?></li>
-                                                <li>Weight: <?= $p['item_weight'] ?></li>
-                                                <li>Remaining Stock: <?= $p['item_stock'] ?></li>
-                                            </ul>
-                                            <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+        <div class="row" id="result">
+
         </div>
     </div>
 </section>
@@ -367,3 +324,5 @@
         </div>
     </div>
 </div>
+
+
