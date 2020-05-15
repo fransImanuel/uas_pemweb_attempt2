@@ -41,7 +41,6 @@
 <script src="<?= base_url() ?>vendor/nowui/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="<?= base_url() ?>vendor/nowui/assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-<script src="<?= base_url() ?>vendor/nowui/assets/demo/demo.js"></script>
 <script>
     $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js
@@ -49,17 +48,28 @@
 
     });
 
+    var bigDashBoardData = []
+    var bigDashBoardLabel = []
+    $bigDashBoardData = <?= $product ?>;
+
+    for ($i = 0; $i < $bigDashBoardData.length; $i++) {
+        bigDashBoardData.push($bigDashBoardData[$i].sum)
+        bigDashBoardLabel.push($bigDashBoardData[$i].category_name)
+
+    }
+
     $('.custom-file-input').on('change', function() {
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
-    function deleteProduct($id) {
+    function deleteProduct($id, $is_active) {
         $.ajax({
             url: "<?= base_url('admin/deleteProduct') ?>",
             type: 'post',
             data: {
-                'id': $id
+                'id': $id,
+                'is_active': $is_active
             },
             success: function($e) {
                 document.location.href = "<?= base_url('admin/productlist') ?>";
@@ -81,9 +91,7 @@
         })
     }
 </script>
-<script>
-
-</script>
+<script src="<?= base_url() ?>vendor/nowui/assets/demo/demo.js"></script>
 </body>
 
 </html>
