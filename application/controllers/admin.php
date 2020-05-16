@@ -55,11 +55,11 @@ class Admin extends CI_Controller
     {
         $output = '';
         $query = '';
-        $this->load->model('ajax_model');
+        $this->load->model('admin_model');
         if ($this->input->post('query')) {
             $query = $this->input->post('query');
         }
-        $data = $this->ajax_model->fetch_data($query);
+        $data = $this->admin_model->fetch_data($query);
         $output .= '
         <table class="table table-hover">
                         <thead class="thead-dark ">

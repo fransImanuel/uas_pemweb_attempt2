@@ -26,6 +26,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function() {
+
         load_data();
         localStorage.setItem('sort', 'ASC');
         localStorage.setItem('filter', '');

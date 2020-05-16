@@ -21,7 +21,7 @@ class User extends CI_Controller
             $data['name'] = '';
         }
 
-        
+
         $data['product'] = $this->db->get('item')->result_array();
         // var_dump($data['user']);die;
         $data['category'] = $this->db->get('category')->result_array();
@@ -82,7 +82,7 @@ class User extends CI_Controller
                                                 <li>Weight: ' . $p->item_weight . '</li>
                                                 <li>Remaining Stock: ' . $p->item_stock . '</li>
                                             </ul>
-                                            <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="addToCart('. $p->item_id .')"><i class="fas fa-cart-plus" ></i>Add to Cart</button>
+                                            <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="addToCart(' . $p->item_id . ')"><i class="fas fa-cart-plus" ></i>Add to Cart</button>
                                             <button class="btn btn-secondary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close</button>
                                         </div>
                                     </div>
