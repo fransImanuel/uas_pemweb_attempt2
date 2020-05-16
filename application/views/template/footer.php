@@ -26,14 +26,20 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        load_data();
 
-        function load_data(query) {
+        load_data();
+        localStorage.setItem('sort', 'ASC');
+        localStorage.setItem('filter', '');
+        localStorage.setItem('search', '');
+
+        function load_data(search, filter, sort) {
             $.ajax({
                 url: "<?php echo base_url(); ?>user/fetch",
                 method: "POST",
                 data: {
-                    query: query
+                    search: search,
+                    filter: filter,
+                    sort: sort
                 },
                 success: function(data) {
                     $('#result').html(data);
@@ -41,14 +47,49 @@
             })
         }
 
+
         $('#search_text').keyup(function() {
             var search = $(this).val();
+            localStorage.setItem('search', search);
+            var filter = localStorage.getItem('filter');
+            var sort = localStorage.getItem('sort');
             if (search != '') {
-                load_data(search);
+                load_data(search, filter, sort);
             } else {
-                load_data();
+                load_data('', filter, sort);
             }
         });
+
+        $('.filter').click(function() {
+            var filter = $(this).val();
+            var search = localStorage.getItem('search');
+            var sort = localStorage.getItem('sort');
+            if (filter == localStorage.getItem('filter')) {
+                localStorage.setItem('filter', '');
+            } else {
+                localStorage.setItem('filter', filter);
+            }
+
+            filter = localStorage.getItem('filter');
+
+            filter = localStorage.getItem('filter');
+
+            load_data(search, filter, sort);
+
+        })
+
+        $('#sort').click(function() {
+            var search = localStorage.getItem('search');
+            var filter = localStorage.getItem('filter');
+            if ($('#sort').data('flag') == 1) {
+                localStorage.setItem('sort', 'ASC');
+                load_data(search, filter, 'ASC');
+            } else {
+                localStorage.setItem('sort', 'DESC');
+                load_data(search, filter, 'DESC');
+            }
+        })
+
 
     });
 
