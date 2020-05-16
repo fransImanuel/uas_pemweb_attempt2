@@ -12,11 +12,23 @@
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Find Your Favorite Bag</h2>
             <h3 class="section-subheading text-muted">Best Place For Your Fashion</h3>
+            <!-- button buat sort -->
+            <button class="float-left ml-5 mr-3 btn btn-primary" id="sort" onclick="sorting()" data-flag="1"><i class="sortIcon fas fa-fw fa-sort-alpha-down"></i></button>
             <!-- Search form -->
-            <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan active-cyan-2 mt-2 mb-5">
+            <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
                 <i class="fas fa-search" aria-hidden="true"></i>
                 <input class="form-control form-control-sm ml-3 w-75" name="search_text" id="search_text" type="text" placeholder="Search" aria-label="Search">
             </form>
+            <!-- button buat filter -->
+            <div class="category mb-5">
+                <?php foreach ($category as $c) : ?>
+                    <button class="btn badge badge-primary mr-2 filter" value="<?= $c['category_name'] ?>">
+                        <!-- value nya buat identifier filter yg di klik di javascriptnya 
+                            class filter buat ngetrigger jquery-->
+                        <?= $c['category_name'] ?>
+                    </button>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="row" id="result">
 
@@ -324,5 +336,3 @@
         </div>
     </div>
 </div>
-
-

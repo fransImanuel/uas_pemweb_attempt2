@@ -56,11 +56,12 @@
                                  <label for="shortproductdesc">Short Product Desc</label>
                                  <?php echo form_error('shortproductdesc', '<small class="text-danger "> *', '</small>'); ?>
                                  <input name="shortproductdesc" type="text" class="form-control" id="shortproductdesc" value="<?= $product['item_short_desc'] ?>">
-                             </div>
-                             <div class="form-group">
-                                 <label for="longproductdesc">Detail Product Desc</label>
-                                 <?php echo form_error('longproductdesc', '<small class="text-danger "> *', '</small>'); ?>
-                                 <textarea placeholder="<?= $product['item_long_desc'] ?>" name="longproductdesc" type="text" class="form-control" id="longproductdesc" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="longproductdesc">Detail Product Desc</label>
+                                    <?php echo form_error('longproductdesc', '<small class="text-danger "> *', '</small>'); ?>
+                                    <input name="longproductdesc" type="text" class="form-control" id="longproductdesc" value="<?= $product['item_long_desc'] ?>">
+                                    
                              </div>
                              <div class="form-group">
                                  <label for="category">Product Category</label>
@@ -76,9 +77,7 @@
                                              <option value="<?= $c['category_id'] ?>"><?= $c['category_name'] ?></option>
                                          <?php endif; ?>
                                      <?php endforeach; ?>
-
                                  </select>
-
                              </div>
                              <button type="submit" class="btn btn-primary float-right">Submit</button>
                          </form>

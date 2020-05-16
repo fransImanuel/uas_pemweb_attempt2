@@ -23,21 +23,16 @@
                     <h4 class="card-title">Add Products</h4>
                 </div>
                 <div class="card-body m-4">
-
                     <div class="container">
-                        <br><br><br>
                         <div class="form-group">
+                            <?= $this->session->flashdata('message'); ?>
                             <div class="input-group">
                                 <input type="text" name="search_text" id="search_text" class="form-control" placeholder="SearchBar">
                             </div>
                         </div>
-
                     </div>
                     <div id="result">
-
                     </div>
-                    <?= $this->session->flashdata('message'); ?>
-
 
                     </tbody>
                     </table>

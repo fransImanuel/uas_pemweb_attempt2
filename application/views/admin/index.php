@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-lg-4">
 
-                <!-- <div class="card card-chart">
+                <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">Global Sales</h5>
                         <h4 class="card-title">Shipped Products</h4>
@@ -48,12 +48,12 @@
                             <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
             <div class="col-lg-4 col-md-6">
 
-                <!-- <div class="card card-chart">
+                <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">2018 Sales</h5>
                         <h4 class="card-title">All products</h4>
@@ -79,11 +79,11 @@
                             <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
             <div class="col-lg-4 col-md-6">
-                <!-- <div class="card card-chart">
+                <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">Email Statistics</h5>
                         <h4 class="card-title">24 Hours Performance</h4>
@@ -98,7 +98,7 @@
                             <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="row">
