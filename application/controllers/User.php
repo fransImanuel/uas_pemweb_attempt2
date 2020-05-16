@@ -143,7 +143,7 @@ class User extends CI_Controller
                     'user_id' => $user['user_id']
                 ];
                 $this->session->set_userdata($data);
-                 //var_dump($this->session->userdata(['email']));
+                //var_dump($this->session->userdata(['email']));
                 // die;
                 if ($user['role_id'] == 1) {
                     redirect('admin');
@@ -208,125 +208,124 @@ class User extends CI_Controller
     }
 
     public function editpage($id)
-	{
+    {
         if ($this->session->userdata('user_id') != $id || $this->session->userdata('role_id') == 1) {
             redirect('user');
         }
-        $query = $this->db->query("SELECT * FROM users WHERE user_id='".$id."'");
+        $query = $this->db->query("SELECT * FROM users WHERE user_id='" . $id . "'");
         $data['userDetails'] = $query->result_array();
         $array_hasil = $data['userDetails'];
         $array_hasil = $array_hasil[0];
         $data2['name'] = $array_hasil['first_name'];
-		//$data['style'] = $this->load->view('include/style', NULL, TRUE);
-		//$data['script'] = $this->load->view('include/script', NULL, TRUE);
-		//$data['navbar'] = $this->load->view('template/navbar_book', NULL, TRUE);
-		//$data['footer'] = $this->load->view('template/footer_book', NULL, TRUE);
+        //$data['style'] = $this->load->view('include/style', NULL, TRUE);
+        //$data['script'] = $this->load->view('include/script', NULL, TRUE);
+        //$data['navbar'] = $this->load->view('template/navbar_book', NULL, TRUE);
+        //$data['footer'] = $this->load->view('template/footer_book', NULL, TRUE);
 
-        $this->load->view('template/header',$data2);
-        $this->load->view('user/edit',$data);
+        $this->load->view('template/header', $data2);
+        $this->load->view('user/edit', $data);
         $this->load->view('template/footer');
     }
 
     public function editUser($id)
-	{
+    {
         if ($this->session->userdata('user_id') != $id) {
             redirect('user');
         }
-        
-        $config['upload_path'] = './assets/img/profile/';
-		$config['allowed_types']        = 'jpg|png';
-		$config['max_size']             = 1024;
 
-		$this->upload->initialize($config);
-        
-        
-		$post = $this->input->post();
-		$this->user_id = $post['user_id'];
+        $config['upload_path'] = './assets/img/profile/';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 1024;
+
+        $this->upload->initialize($config);
+
+
+        $post = $this->input->post();
+        $this->user_id = $post['user_id'];
         $this->first_name = $post['first_name'];
         $this->last_name = $post['last_name'];
         $this->birthday = $post['birthday'];
         $this->gender = $post['gender'];
         $this->profile_picture = $this->UploadImage();
 
-		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');
         $this->form_validation->set_rules('birthday', 'Birthday', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('profile_picture', 'Profile Picture', 'callback_image_check');
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->editpage($this->user_id);
-		} else {
-			$where = array(
-				'user_id'		=> $this->user_id
+        if ($this->form_validation->run() == FALSE) {
+            $this->editpage($this->user_id);
+        } else {
+            $where = array(
+                'user_id'        => $this->user_id
             );
             if ($this->profile_picture != null) {
                 $values = array(
-				    'first_name'	    => $this->first_name,
-					'last_name'		    => $this->last_name,
-					'birthday'		    => $this->birthday,
-                    'gender'		    => $this->gender,
+                    'first_name'        => $this->first_name,
+                    'last_name'            => $this->last_name,
+                    'birthday'            => $this->birthday,
+                    'gender'            => $this->gender,
                     'profile_picture'   => $this->profile_picture
-				);
-            }
-            else {
+                );
+            } else {
                 $values = array(
-				    'first_name'	    => $this->first_name,
-					'last_name'		    => $this->last_name,
-					'birthday'		    => $this->birthday,
-                    'gender'		    => $this->gender
-				);
+                    'first_name'        => $this->first_name,
+                    'last_name'            => $this->last_name,
+                    'birthday'            => $this->birthday,
+                    'gender'            => $this->gender
+                );
             }
-			
-			$this->db->where($where);
-            $this->db->update('users',$values);
-            //redirect('user');
-		}
+
+            $this->db->where($where);
+            $this->db->update('users', $values);
+            redirect('user');
+        }
     }
-    
-    public function UploadImage(){
-		$config['upload_path']          = './assets/img/profile/';
-		$config['allowed_types']        = 'jpg|png';
-		$config['max_size']				= 1024;
-		
-		$this->load->library('upload', $config);
 
-		if ( ! $this->upload->do_upload('profile_picture')){
-			$error = array('error' => $this->upload->display_errors());
-			// $this->load->view
-		}else{
-			$data_image = array('upload_data' => $this->upload->data());
-			$dir = "assets/img/profile/".$data_image['upload_data']['file_name'];
-			return $dir;
-		}
+    public function UploadImage()
+    {
+        $config['upload_path']          = './assets/img/profile/';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']                = 1024;
 
-	}
+        $this->load->library('upload', $config);
 
-	public function image_check($str){
+        if (!$this->upload->do_upload('profile_picture')) {
+            $error = array('error' => $this->upload->display_errors());
+            // $this->load->view
+        } else {
+            $data_image = array('upload_data' => $this->upload->data());
+            $dir = "assets/img/profile/" . $data_image['upload_data']['file_name'];
+            return $dir;
+        }
+    }
+
+    public function image_check($str)
+    {
         $allowedType = array('image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png');
         if ($_FILES != null) {
             $mime = get_mime_by_extension($_FILES['profile_picture']['name']);
-            if(isset($_FILES['profile_picture']['name']) && $_FILES['profile_picture']['name']!=""){
-                if(in_array($mime, $allowedType)){
-                    if($_FILES['profile_picture']['size'] < 1048576){
+            if (isset($_FILES['profile_picture']['name']) && $_FILES['profile_picture']['name'] != "") {
+                if (in_array($mime, $allowedType)) {
+                    if ($_FILES['profile_picture']['size'] < 1048576) {
                         return true;
-                    }
-                    else{
+                    } else {
                         $this->form_validation->set_message('image_check', 'The uploaded file exceeds the maximum allowed size in your PHP configuration file !');
                         return false;
                     }
-                }
-                else{
+                } else {
                     $this->form_validation->set_message('image_check', 'The filetype you are attempting to upload is not allowed !');
                     return false;
                 }
             }
         }
-		return true;
-	}
+        return true;
+    }
 
-    public function logout(){
-        if ( !$this->session->userdata('email') ) {
+    public function logout()
+    {
+        if (!$this->session->userdata('email')) {
             redirect('user');
         }
         $this->session->unset_userdata('email');
