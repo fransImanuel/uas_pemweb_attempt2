@@ -1,3 +1,6 @@
+// import '../../../../application/views/admin_template/footer.php'
+// console.log(bigDashBoard);
+
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {
@@ -219,12 +222,17 @@ demo = {
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
 
+    // let stat = $('#bigDashboardChart').data('stat');
+    // let statParse = JSON.parse(JSON.stringify(stat));
+    // console.log($bigDashBoard);
+    
+
     var myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+        labels: bigDashBoardLabel,
         datasets: [{
-          label: "Data",
+          label: "Lots of Sales",
           borderColor: chartColor,
           pointBorderColor: chartColor,
           pointBackgroundColor: "#1e3d60",
@@ -237,7 +245,7 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+          data: bigDashBoardData
         }]
       },
       options: {

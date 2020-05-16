@@ -39,8 +39,8 @@ class Admin extends CI_Controller
 
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
-        $this->load->view('admin/index');
-        $this->load->view('admin_template/footer');
+        $this->load->view('admin/index', $data);
+        $this->load->view('admin_template/footer', $data);
     }
 
     public function chart()
@@ -139,7 +139,7 @@ class Admin extends CI_Controller
                                                          </div>
                                                      </div>
                                                      <div class="modal-footer">
-                                                         <button type="button" class="btn btn-primary">OK</button>
+                                                         <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                                                      </div>
                                                  </div>
                                              </div>
@@ -168,7 +168,7 @@ class Admin extends CI_Controller
                                                          </div>
                                                      </div>
                                                      <div class="modal-footer">
-                                                         <button type="button" class="btn btn-primary " data-dismiss="modal" onclick="deleteProduct(' . $p->item_id . ',' . $p->item_is_active . ')">Delete</button>
+                                                         <button type="button" class="btn btn-primary " data-dismiss="modal" onclick="deleteProduct(' . $p->item_id . ',' . $p->item_is_active . ')">Change Avaibility</button>
                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                                                      </div>
                                                  </div>
@@ -259,7 +259,6 @@ class Admin extends CI_Controller
         $data['category'] = $this->db->get('category')->result_array();
 
         $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , category.category_name');
-        // $this->db->from('item');
         $this->db->join('category', 'category.category_id = item.item_category');
         $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_object();
         // var_dump($data['product']);die;
@@ -289,7 +288,7 @@ class Admin extends CI_Controller
         $this->db->where('item_id', $id_product);
         $this->db->update('item', $data);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Product Deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Product Avaibility Changed!</div>');
     }
 
     public function editProduct()
