@@ -38,7 +38,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 <?php $link_url = 'user/editpage/'.$this->session->userdata('user_id'); ?>
-                                <a class="dropdown-item " href="<?= base_url($link_url) ?>"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"".base_url($link_url)."\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
                                 <?php if ($this->session->userdata('role_id') == 1) : ?>
                                     <a class="dropdown-item " href="<?= base_url('admin') ?>"><i class="fas fa-users-cog"></i> Admin Menu</a>
                                 <?php else : ?>

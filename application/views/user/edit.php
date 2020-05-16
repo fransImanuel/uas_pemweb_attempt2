@@ -17,9 +17,11 @@
 							<?php foreach($userDetails as $detail){
                                 $link_url = "user/editUser/" . $detail['user_id'];
 							?>
-                            <form class="user" method="post" action="<?= base_url($link_url) ?>">
+                            <img src="<?= base_url($detail['profile_picture']); ?>" width="300" height="300" alt="Image not found!"> 
+                            <br>
+                            <form class="user" method="post" action="<?= base_url($link_url) ?>" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="user_id" name="user_id" placeholder="Enter Email Address..." value="<?= $detail['user_id'] ?>" readonly>
+                                    <input type="text" class="form-control form-control-user" id="user_id" name="user_id" placeholder="Enter Email Address..." value="<?= $detail['user_id'] ?>" readonly hidden>
                                     <?php echo form_error('id', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
@@ -41,6 +43,11 @@
                                         <option value="F" <?php if ($detail['gender'] == "F") echo "selected";?>>Female</option>
                                     </select>
                                     <?php echo form_error('gender', '<small class="text-danger ">', '</small>'); ?>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile_picture">Profile Picture</label><br>
+                                    <input type="file" id="profile_picture" name="profile_picture" value="<?= $detail['profile_picture']; ?>">
+                                    <small class="form-text text-danger"><?= form_error('profile_picture'); ?></small>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Update Data
