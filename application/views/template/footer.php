@@ -50,7 +50,6 @@
             }
         });
 
-
     });
 
     function sorting() {
@@ -74,8 +73,9 @@
     }
 
     function addToCart($itemId) {
-        var x = $('#page-top').data('numberOfItem')
-        console.log(x);
+        // var x = $('#totalItemOnCart').text()
+        // console.log($(document).scrollTop());
+        var x = $(document).scrollTop();
         $.ajax({
             url: '<?= base_url('product/addtocart') ?>',
             method: 'post',
@@ -83,8 +83,7 @@
                 'itemId': $itemId
             },
             success: function() {
-                // document.location.href = "<?= base_url('user') ?>"
-                $('#totalItemOnCart').text("<?= $this->cart->total_items() ?>")
+                location.reload()
             }
         })
     }

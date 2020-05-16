@@ -1,79 +1,105 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container">
+            <!-- <div class="masthead-subheading">Your Cart</div>
+            <div class="masthead-heading text-uppercase">Your Information Will Be Kept A Secret </div> -->
+            <div class="masthead-heading text-uppercase">Your Cart </div>
+        </div>
+    </header>
+    <!-- Outer Row -->
+    <div class="row justify-content-center mt-5">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <div class="col-lg-11 col-md col-sm mt-4 ml-4">
+            <?= $this->session->flashdata('message'); ?><strong><?= $this->session->flashdata('keterangan'); ?></strong>
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <table class="table table-hover m-3">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>QTY</th>
+                                    <th>Item Description</th>
+                                    <th style="text-align:right">Item Price</th>
+                                    <th style="text-align:right">Sub-Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 0; ?>
 
-    <title>Hello, world!</title>
-</head>
+                                <?php foreach ($this->cart->contents() as $items) : ?>
 
-<body>
+                                    <?php echo form_open('product/updatecart'); ?>
+                                    <?php echo form_hidden($i . '[rowid]', $items['rowid']); ?>
+                                    <?php echo form_hidden($i . '[itemid]', $items['id']); ?>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>QTY</th>
-                <th>Item Description</th>
-                <th style="text-align:right">Item Price</th>
-                <th style="text-align:right">Sub-Total</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $i = 1; ?>
 
-            <?php foreach ($this->cart->contents() as $items) : ?>
 
-                <?php echo form_hidden($i . '[rowid]', $items['rowid']); ?>
+                                    <tr>
+                                        <td><?php echo form_input(array('name' => $i . '[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '1', 'class' => "form-control")); ?></td>
+                                        <td>
+                                            <?php if ($this->cart->has_options($items['rowid']) == TRUE) : ?>
+                                                <div class="row">
+                                                    <div class="col-lg col-md col-sm">
+                                                        <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value) : ?>
 
-                <tr>
-                    <td><?php echo form_input(array('name' => $i . '[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
-                    <td>
-                        <?php echo $items['name']; ?>
+                                                            <?php if ($option_name == 'Image') : ?>
+                                                                <img src="<?= base_url() ?>assets/img/product/<?= $option_value ?>" alt="Product Image" class="img-thumbnail" style="
+                                                                width: 200px;
+                                                                margin: 0;
+                                                                padding: 0;
+                                                                object-fit:cover;
+                                                            ">
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                    <div class="col-lg col-md col-sm">
 
-                        <?php if ($this->cart->has_options($items['rowid']) == TRUE) : ?>
+                                                        <h5>
+                                                            Name : <?php echo ucwords($items['name']); ?>
+                                                        </h5>
+                                                        <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value) : ?>
+                                                            <?php if ($option_name != 'Image') : ?>
+                                                                <p>Weight: <?= $option_value ?> Ons</p>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </div>
 
-                            <p>
-                                <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value) : ?>
+                                                <?php endif; ?>
 
-                                    <strong><?php echo $option_name; ?>:</strong> <?php echo $option_value; ?><br />
+                                        </td>
+                                        <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
+                                        <td style="text-align:right">Rp. <?= $this->cart->format_number($items['subtotal']) ?></td>
+                                        <td><a href="<?= base_url('product/removeproduct') ?>/<?= $items['rowid'] ?>"><i class="fas fa-fw fa-trash-alt"></i></a></td>
+                                    </tr>
+
+                                    <?php $i++; ?>
 
                                 <?php endforeach; ?>
-                            </p>
-
-                        <?php endif; ?>
-
-                    </td>
-                    <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-                    <td style="text-align:right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
-                    <td style="text-align:right"><a href="<?= base_url('product/removeproduct') ?>/<?= $items['rowid'] ?>">Delete</a></td>
-                </tr>
-
-                <?php $i++; ?>
-
-            <?php endforeach; ?>
-            <tr>
-                <td colspan="3"> </td>
-                <td class="right"><strong>Total</strong></td>
-                <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
-            </tr>
-        </tbody>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="float-right"><strong>Total</strong></td>
+                                    <td>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></td>
+                                </tr>
+                            </tbody>
 
 
 
-    </table>
+                        </table>
 
-    <p><?php echo form_submit('', 'Update your Cart'); ?></p>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
 
-</html>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <?php echo form_hidden('numberOfProducts', $i) ?>
+                    <p><?php echo form_submit('update', 'Update your Cart', ['class' => 'btn btn-primary float-left']); ?></p>
+                    <?= form_close(); ?>
+                    <a href="<?= base_url('product/checkout') ?>" class="float-right btn btn-success text-white">Checkout</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
