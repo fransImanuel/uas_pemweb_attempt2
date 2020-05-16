@@ -7,6 +7,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->helper(array('form', 'url', 'file'));
     }
 
     public function index()
@@ -231,34 +232,97 @@ class User extends CI_Controller
         if ($this->session->userdata('user_id') != $id) {
             redirect('user');
         }
+        
+        $config['upload_path'] = './assets/img/profile/';
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']             = 1024;
+
+		$this->upload->initialize($config);
+        
+        
 		$post = $this->input->post();
 		$this->user_id = $post['user_id'];
         $this->first_name = $post['first_name'];
         $this->last_name = $post['last_name'];
         $this->birthday = $post['birthday'];
         $this->gender = $post['gender'];
+        $this->profile_picture = $this->UploadImage();
 
 		$this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');
         $this->form_validation->set_rules('birthday', 'Birthday', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
+        $this->form_validation->set_rules('profile_picture', 'Profile Picture', 'callback_image_check');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->editpage($this->user_id);
 		} else {
 			$where = array(
 				'user_id'		=> $this->user_id
-			);
-			$values = array(
-				    'first_name'	=> $this->first_name,
-					'last_name'		=> $this->last_name,
-					'birthday'		=> $this->birthday,
-					'gender'		=> $this->gender
+            );
+            if ($this->profile_picture != null) {
+                $values = array(
+				    'first_name'	    => $this->first_name,
+					'last_name'		    => $this->last_name,
+					'birthday'		    => $this->birthday,
+                    'gender'		    => $this->gender,
+                    'profile_picture'   => $this->profile_picture
 				);
+            }
+            else {
+                $values = array(
+				    'first_name'	    => $this->first_name,
+					'last_name'		    => $this->last_name,
+					'birthday'		    => $this->birthday,
+                    'gender'		    => $this->gender
+				);
+            }
+			
 			$this->db->where($where);
             $this->db->update('users',$values);
-            redirect('user');
+            //redirect('user');
 		}
+    }
+    
+    public function UploadImage(){
+		$config['upload_path']          = './assets/img/profile/';
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']				= 1024;
+		
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload('profile_picture')){
+			$error = array('error' => $this->upload->display_errors());
+			// $this->load->view
+		}else{
+			$data_image = array('upload_data' => $this->upload->data());
+			$dir = "assets/img/profile/".$data_image['upload_data']['file_name'];
+			return $dir;
+		}
+
+	}
+
+	public function image_check($str){
+        $allowedType = array('image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png');
+        if ($_FILES != null) {
+            $mime = get_mime_by_extension($_FILES['profile_picture']['name']);
+            if(isset($_FILES['profile_picture']['name']) && $_FILES['profile_picture']['name']!=""){
+                if(in_array($mime, $allowedType)){
+                    if($_FILES['profile_picture']['size'] < 1048576){
+                        return true;
+                    }
+                    else{
+                        $this->form_validation->set_message('image_check', 'The uploaded file exceeds the maximum allowed size in your PHP configuration file !');
+                        return false;
+                    }
+                }
+                else{
+                    $this->form_validation->set_message('image_check', 'The filetype you are attempting to upload is not allowed !');
+                    return false;
+                }
+            }
+        }
+		return true;
 	}
 
     public function logout(){
