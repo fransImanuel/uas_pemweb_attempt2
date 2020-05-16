@@ -72,7 +72,11 @@
             } else {
                 localStorage.setItem('filter', filter);
             }
+<<<<<<< Updated upstream
             var filter = localStorage.getItem('filter');
+=======
+            filter = localStorage.getItem('filter');
+>>>>>>> Stashed changes
             load_data(search, filter, sort);
 
         })
