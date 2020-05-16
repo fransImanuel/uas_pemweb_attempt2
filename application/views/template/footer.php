@@ -23,13 +23,9 @@
 <script src="<?= base_url('vendor/agency/'); ?>js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
-</body>
-
-</html>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function() {
-
         load_data();
 
         function load_data(query) {
@@ -61,12 +57,38 @@
         //flag 0 = asc, flag 1 = desc
         $('#sort').data('flag');
 
+        // console.log($('#sort').html())
+
+
         if ($('#sort').data('flag') == 1) {
             $('#sort').data('flag', 2)
+            $('.sortIcon').removeClass('fa-sort-alpha-down')
+            $('.sortIcon').addClass('fa-sort-alpha-up')
             // $.ajax buat desc
         } else {
             $('#sort').data('flag', 1)
+            $('.sortIcon').removeClass('fa-sort-alpha-up')
+            $('.sortIcon').addClass('fa-sort-alpha-down')
             // $.ajax buat asc
         }
     }
+
+    function addToCart($itemId) {
+        var x = $('#page-top').data('numberOfItem')
+        console.log(x);
+        $.ajax({
+            url: '<?= base_url('product/addtocart') ?>',
+            method: 'post',
+            data: {
+                'itemId': $itemId
+            },
+            success: function() {
+                // document.location.href = "<?= base_url('user') ?>"
+                $('#totalItemOnCart').text("<?= $this->cart->total_items() ?>")
+            }
+        })
+    }
 </script>
+</body>
+
+</html>

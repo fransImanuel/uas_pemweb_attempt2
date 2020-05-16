@@ -18,20 +18,21 @@
     <link href="<?= base_url(); ?>/vendor/agency/css/styles.css" rel="stylesheet" />
 </head>
 
-<body id="page-top">
+<body id="page-top" data-numberOfItem="<?= $this->cart->total_items() ?>">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <!-- <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="<?= base_url('vendor/agency/'); ?>assets/img/navbar-logo.svg" /></a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button> -->
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Shipment</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                     <?php if ($this->session->userdata('email')) : ?>
 
-
+                        <a class="nav-link js-scroll-trigger mr-3" href="<?= base_url('product') ?>"><i class="fas fa-fw fa-shopping-cart"></i>
+                            <p class="badge badge-pill badge-warning" id="totalItemOnCart"><?= $this->cart->total_items() ?></p>
+                        </a>
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-warning " data-toggle="dropdown">
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Hello, <?= $name ?></a></li>
