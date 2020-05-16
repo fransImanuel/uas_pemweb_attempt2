@@ -61,8 +61,8 @@ class Admin extends CI_Controller
         }
         $data = $this->ajax_model->fetch_data($query);
         $output .= '
-        <table class="table">
-                        <thead class="thead-dark">
+        <table class="table table-hover">
+                        <thead class="thead-dark ">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Product Name</th>

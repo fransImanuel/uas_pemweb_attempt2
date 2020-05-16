@@ -23,13 +23,9 @@
 <script src="<?= base_url('vendor/agency/'); ?>js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
-</body>
-
-</html>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function() {
-
         load_data();
         localStorage.setItem('sort', 'ASC');
         localStorage.setItem('filter', '');
@@ -101,11 +97,12 @@
         $('#sort').data('flag');
 
         // console.log($('#sort').html())
+
+
         if ($('#sort').data('flag') == 1) {
             $('#sort').data('flag', 2)
             $('.sortIcon').removeClass('fa-sort-alpha-down')
             $('.sortIcon').addClass('fa-sort-alpha-up')
-
             // $.ajax buat desc
         } else {
             $('#sort').data('flag', 1)
@@ -114,4 +111,23 @@
             // $.ajax buat asc
         }
     }
+
+    function addToCart($itemId) {
+        // var x = $('#totalItemOnCart').text()
+        // console.log($(document).scrollTop());
+        var x = $(document).scrollTop();
+        $.ajax({
+            url: '<?= base_url('product/addtocart') ?>',
+            method: 'post',
+            data: {
+                'itemId': $itemId
+            },
+            success: function() {
+                location.reload()
+            }
+        })
+    }
 </script>
+</body>
+
+</html>
