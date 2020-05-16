@@ -13,7 +13,7 @@
             <h2 class="section-heading text-uppercase">Find Your Favorite Bag</h2>
             <h3 class="section-subheading text-muted">Best Place For Your Fashion</h3>
             <!-- button buat sort -->
-            <button class="float-left ml-5 mr-3 btn btn-primary" id="sort" onclick="sorting()" data-flag="1"><i class="fas fa-fw fa-sort-alpha-down"></i></button>
+            <button class="float-left ml-5 mr-3 btn btn-primary" id="sort" onclick="sorting()" data-flag="1"><i class="sortIcon fas fa-fw fa-sort-alpha-down"></i></button>
             <!-- Search form -->
             <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
                 <i class="fas fa-search" aria-hidden="true"></i>
@@ -22,10 +22,11 @@
             <!-- button buat filter -->
             <div class="category mb-5">
                 <?php foreach ($category as $c) : ?>
-                    <a href="" class="btn badge badge-primary mr-2" id="filter<?= $c['category_id'] ?>">
-                        <!-- id nya buat identifier filter yg di klik di javascriptnya -->
+                    <button class="btn badge badge-primary mr-2 filter" value="<?= $c['category_name'] ?>">
+                        <!-- value nya buat identifier filter yg di klik di javascriptnya 
+                            class filter buat ngetrigger jquery-->
                         <?= $c['category_name'] ?>
-                    </a>
+                    </button>
                 <?php endforeach; ?>
             </div>
         </div>
