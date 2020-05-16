@@ -60,6 +60,7 @@
         });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $('.filter').click(function() {
             var filter = $(this).val();
             var search = localStorage.getItem('search');
@@ -90,6 +91,8 @@
             }
         })
 
+=======
+>>>>>>> parent of 050bec6... fitur cart sudah hampir jadi
 =======
 >>>>>>> parent of 050bec6... fitur cart sudah hampir jadi
 
