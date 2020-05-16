@@ -31,13 +31,18 @@
     $(document).ready(function() {
 
         load_data();
+        localStorage.setItem('sort', 'ASC');
+        localStorage.setItem('filter', '');
+        localStorage.setItem('search', '');
 
-        function load_data(query) {
+        function load_data(search, filter, sort) {
             $.ajax({
                 url: "<?php echo base_url(); ?>user/fetch",
                 method: "POST",
                 data: {
-                    query: query
+                    search: search,
+                    filter: filter,
+                    sort: sort
                 },
                 success: function(data) {
                     $('#result').html(data);
@@ -45,13 +50,64 @@
             })
         }
 
+
         $('#search_text').keyup(function() {
             var search = $(this).val();
+            localStorage.setItem('search', search);
+            var filter = localStorage.getItem('filter');
+            var sort = localStorage.getItem('sort');
             if (search != '') {
-                load_data(search);
+                load_data(search, filter, sort);
             } else {
-                load_data();
+                load_data('', filter, sort);
             }
         });
+
+        $('.filter').click(function() {
+            var filter = $(this).val();
+            var search = localStorage.getItem('search');
+            var sort = localStorage.getItem('sort');
+            if (filter == localStorage.getItem('filter')) {
+                localStorage.setItem('filter', '');
+            } else {
+                localStorage.setItem('filter', filter);
+            }
+            var filter = localStorage.getItem('filter');
+            load_data(search, filter, sort);
+
+        })
+
+        $('#sort').click(function() {
+            var search = localStorage.getItem('search');
+            var filter = localStorage.getItem('filter');
+            if ($('#sort').data('flag') == 1) {
+                localStorage.setItem('sort', 'ASC');
+                load_data(search, filter, 'ASC');
+            } else {
+                localStorage.setItem('sort', 'DESC');
+                load_data(search, filter, 'DESC');
+            }
+        })
+
+
     });
+
+    function sorting() {
+        //flag 0 = asc, flag 1 = desc
+        $('#sort').data('flag');
+
+        // console.log($('#sort').html())
+        if ($('#sort').data('flag') == 1) {
+            $('#sort').data('flag', 2)
+            $('.sortIcon').removeClass('fa-sort-alpha-down')
+            $('.sortIcon').addClass('fa-sort-alpha-up')
+
+            // $.ajax buat desc
+        } else {
+            $('#sort').data('flag', 1)
+            $('.sortIcon').removeClass('fa-sort-alpha-up')
+            $('.sortIcon').addClass('fa-sort-alpha-down')
+            // $.ajax buat asc
+        }
+    }
 </script>

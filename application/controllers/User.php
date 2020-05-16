@@ -32,12 +32,15 @@ class User extends CI_Controller
     function fetch()
     {
         $output = '';
-        $query = '';
-        $this->load->model('ajaxsearch_model');
-        if ($this->input->post('query')) {
-            $query = $this->input->post('query');
-        }
-        $data = $this->ajaxsearch_model->fetch_data($query);
+        $search = '';
+        $filter = '';
+        $this->load->model('ajax_model');
+        $search = $this->input->post('search');
+
+        $filter = $this->input->post('filter');
+
+        $sort = $this->input->post('sort');
+        $data = $this->ajax_model->fetch_data($search, $filter, $sort);
         if ($data->num_rows() > 0) {
             $i = 1;
             foreach ($data->result() as $p) {

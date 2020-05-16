@@ -23,6 +23,20 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['title'] = "Admin | Dashboard";
+
+        //query buat data statistik
+        $this->db->select('category.category_name, SUM(history_item.item_quantity) as sum');
+        $this->db->join('item', 'item.item_id = history_item.item_id');
+        $this->db->join('category', 'item.item_category = category.category_id');
+        $this->db->group_by("category_name");
+        $statQuery = $this->db->get('history_item')->result_object();
+        $data['product'] = json_encode($statQuery);
+
+        // $data['product'] = $this->db->get('history_item')->result_array();
+
+        // var_dump(json_decode($data['product']));die;
+
+
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/index');
@@ -41,11 +55,11 @@ class Admin extends CI_Controller
     {
         $output = '';
         $query = '';
-        $this->load->model('ajaxsearch_model');
+        $this->load->model('ajax_model');
         if ($this->input->post('query')) {
             $query = $this->input->post('query');
         }
-        $data = $this->ajaxsearch_model->fetch_data($query);
+        $data = $this->ajax_model->fetch_data($query);
         $output .= '
         <table class="table">
                         <thead class="thead-dark">
@@ -247,8 +261,7 @@ class Admin extends CI_Controller
         $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , category.category_name');
         // $this->db->from('item');
         $this->db->join('category', 'category.category_id = item.item_category');
-        // $this->db->where('item_id', 1);
-        $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_array();
+        $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_object();
         // var_dump($data['product']);die;
 
         $this->load->view('admin_template/header', $data);
