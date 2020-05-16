@@ -59,6 +59,7 @@
             }
         });
 
+<<<<<<< HEAD
         $('.filter').click(function() {
             var filter = $(this).val();
             var search = localStorage.getItem('search');
@@ -89,6 +90,8 @@
             }
         })
 
+=======
+>>>>>>> parent of 050bec6... fitur cart sudah hampir jadi
 
     });
 
@@ -111,9 +114,8 @@
     }
 
     function addToCart($itemId) {
-        // var x = $('#totalItemOnCart').text()
-        // console.log($(document).scrollTop());
-        var x = $(document).scrollTop();
+        var x = $('#page-top').data('numberOfItem')
+        console.log(x);
         $.ajax({
             url: '<?= base_url('product/addtocart') ?>',
             method: 'post',
@@ -121,7 +123,8 @@
                 'itemId': $itemId
             },
             success: function() {
-                location.reload()
+                // document.location.href = "<?= base_url('user') ?>"
+                $('#totalItemOnCart').text("<?= $this->cart->total_items() ?>")
             }
         })
     }
