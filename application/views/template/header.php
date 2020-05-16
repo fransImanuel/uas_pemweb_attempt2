@@ -37,7 +37,8 @@
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Hello, <?= $name ?></a></li>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item " href="<?= base_url('user/edit') ?>"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                                <?php $link_url = 'user/editpage/'.$this->session->userdata('user_id'); ?>
+                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"".base_url($link_url)."\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
                                 <?php if ($this->session->userdata('role_id') == 1) : ?>
                                     <a class="dropdown-item " href="<?= base_url('admin') ?>"><i class="fas fa-users-cog"></i> Admin Menu</a>
                                 <?php else : ?>
