@@ -76,6 +76,17 @@ class Product extends CI_Controller
                 You Dont Have Any Item too Buy</div>');
             redirect('product');
         }
+
+        $email = $this->session->userdata('email');
+        $queryDb = $this->db->get_where('users', ['email' => $email])->row_array();
+        
+        // var_dump($queryDb);die;
+        if($queryDb['city'] == '' or $queryDb['phone_number'] == '' or $queryDb['post_code'] == '' or $queryDb['address']=='' ){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Please Complete The Necessary Information So The Shipment May Went Smoothly </div>');
+            redirect('user/editpage/'.$this->session->userdata('user_id'));
+        }
+
         $hist_id = rand(1000, 9999);
 
         //transaction

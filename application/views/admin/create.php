@@ -49,7 +49,7 @@
                              <div class="form-group">
                                  <label for="productweight">Weight</label>
                                  <?php echo form_error('productweight', '<small class="text-danger "> *', '</small>'); ?>
-                                 <input name="productweight" type="text" class="form-control" id="productweight" placeholder="In Gram..." value="<?= set_value('productweight') ?>">
+                                 <input name="productweight" type="text" class="form-control" id="productweight" placeholder="In Ons..." value="<?= set_value('productweight') ?>">
 
                              </div>
                              <div class="form-group">

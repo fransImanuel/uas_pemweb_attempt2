@@ -109,6 +109,7 @@ class Admin extends CI_Controller
                                                                  <h3 class="mt">Category : ' . $p->category_name . '</h3>
                                                                  <p class="mb-0">' . $p->item_short_desc . '</p>
                                                                  <p class="blockquote-footer">' . $p->item_long_desc . '</p>
+                                                                 <p class="blockquote-footer">Date Added : ' . $p->date_added . '</p>
                                                                  <div class="container">
                                                                      <div class="row blockquote">
                                                                          <div class="col-sm">
@@ -221,7 +222,9 @@ class Admin extends CI_Controller
                     'item_weight' => $this->input->post('productweight'),
                     'item_long_desc' => $this->input->post('longproductdesc'),
                     'item_short_desc' => $this->input->post('shortproductdesc'),
-                    'item_category' => $this->input->post('category')
+                    'item_category' => $this->input->post('category'),
+                    'item_is_active' => 1,
+                    'date_added' => date('Y-m-d'),
                 ];
                 $this->db->insert('item', $data);
             } else {
