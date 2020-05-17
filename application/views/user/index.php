@@ -53,19 +53,19 @@
 <section class="page-section" id="about">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Proses Pemesanan Kami</h2>
-            <h3 class="section-subheading text-muted">Seluruh sistem fulfillment kami dijamin kualitasnya untuk memberikan pelayanan terbaik.</h3>
+            <h2 class="section-heading text-uppercase">Our Order System</h2>
+            <h3 class="section-subheading text-muted">Our fulfillment system has been standarized to ensure best customer experience.</h3>
         </div>
         <ul class="timeline">
             <li>
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/payment_confirmation.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>Tahap Pertama</h4>
-                        <h4 class="subheading">Pemesanan dan Konfirmasi Pembayaran</h4>
+                        <h4>Step One</h4>
+                        <h4 class="subheading">Order and Confirm Payment</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Setelah memilih barang yang ingin anda beli, silahkan melakukan finalisasi pemesanan dan melakukan pembayaran di mitra pembayaran kami yang telah ditunjuk.</p>
+                        <p class="text-muted">After choosing your items, finalize order and make payment on our payment channels.</p>
                     </div>
                 </div>
             </li>
@@ -73,11 +73,11 @@
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/warehouse.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>Tahap Kedua</h4>
-                        <h4 class="subheading">Pesanan Diproses</h4>
+                        <h4>Step Two</h4>
+                        <h4 class="subheading">Process Order</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Setelah pembayaran terkonfirmasi, tim warehouse kami akan mempersiapkan barang-barang untuk memenuhi pemesanan anda.</p>
+                        <p class="text-muted">After payment has been confirmed, our warehouse team will prepare your order for shipment.</p>
                     </div>
                 </div>
             </li>
@@ -85,11 +85,11 @@
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/shipment.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>Tahap Ketiga</h4>
-                        <h4 class="subheading">Pengiriman</h4>
+                        <h4>Step Three</h4>
+                        <h4 class="subheading">Shipment</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Pesanan anda yang telah selesai diproses akan segera dikirim dengan kurir yang sudah bekerjasama dengan kami.</p>
+                        <p class="text-muted">Order that has been processed will be shipped with our courier partners.</p>
                     </div>
                 </div>
             </li>
@@ -97,11 +97,11 @@
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/done.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>Tahap Keempat</h4>
-                        <h4 class="subheading">Penyelesaian Pesanan</h4>
+                        <h4>Step Four</h4>
+                        <h4 class="subheading">Order Completion</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Setelah pesanan berhasil diterima, silahka mengkonfirmasi penyelesaian pesanan atau hubungi kami apabila terdapat suatu masalah dengan produk tersebut.</p>
+                        <p class="text-muted">After your order has been received, please confirm shipment or contact us if you have any inquiry.</p>
                     </div>
                 </div>
             </li>
