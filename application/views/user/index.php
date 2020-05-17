@@ -25,8 +25,8 @@
                     </div>
                     <div class="col-2 col-sm-6 col-md-2">
                         <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
-                            <input class=" form-control form-control-sm ml-0 w-75" name="search_text" id="search_text" type="text" placeholder="Max Price" aria-label="Search">
-                            <input class=" form-control form-control-sm ml-0 w-75" name="search_text" id="search_text" type="text" placeholder="Min Price" aria-label="Search">
+                            <input class=" form-control form-control-sm ml-0 w-75" name="maximum" id="maximum" type="text" placeholder="Max Price" aria-label="min">
+                            <input class=" form-control form-control-sm ml-0 w-75" name="minimum" id="minimum" type="text" placeholder="Min Price" aria-label="max">
                         </form>
                     </div>
                 </div>

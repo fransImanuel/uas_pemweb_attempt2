@@ -28,15 +28,19 @@
         localStorage.setItem('sort', 'ASC');
         localStorage.setItem('filter', '');
         localStorage.setItem('search', '');
+        localStorage.setItem('minimum', '');
+        localStorage.setItem('maximum', '');
 
-        function load_data(search, filter, sort) {
+        function load_data(search, filter, sort, minimum, maximum) {
             $.ajax({
                 url: "<?php echo base_url(); ?>user/fetch",
                 method: "POST",
                 data: {
                     search: search,
                     filter: filter,
-                    sort: sort
+                    sort: sort,
+                    minimum: minimum,
+                    maximum: maximum
                 },
                 success: function(data) {
                     $('#result').html(data);
@@ -50,10 +54,12 @@
             localStorage.setItem('search', search);
             var filter = localStorage.getItem('filter');
             var sort = localStorage.getItem('sort');
+            var minimum = localStorage.getItem('minimum');
+            var maximum = localStorage.getItem('maximum');
             if (search != '') {
-                load_data(search, filter, sort);
+                load_data(search, filter, sort, minimum, maximum);
             } else {
-                load_data('', filter, sort);
+                load_data('', filter, sort, minimum, maximum);
             }
         });
 
@@ -61,6 +67,8 @@
             var filter = $(this).val();
             var search = localStorage.getItem('search');
             var sort = localStorage.getItem('sort');
+            var minimum = localStorage.getItem('minimum');
+            var maximum = localStorage.getItem('maximum');
             if (filter == localStorage.getItem('filter')) {
                 localStorage.setItem('filter', '');
             } else {
@@ -69,24 +77,53 @@
 
             filter = localStorage.getItem('filter');
 
-            filter = localStorage.getItem('filter');
 
-            load_data(search, filter, sort);
+
+            load_data(search, filter, sort, minimum, maximum);
 
         })
 
         $('#sort').click(function() {
             var search = localStorage.getItem('search');
             var filter = localStorage.getItem('filter');
+            var minimum = localStorage.getItem('minimum');
+            var maximum = localStorage.getItem('maximum');
             if ($('#sort').data('flag') == 1) {
                 localStorage.setItem('sort', 'ASC');
-                load_data(search, filter, 'ASC');
+                load_data(search, filter, 'ASC', minimum, maximum);
             } else {
                 localStorage.setItem('sort', 'DESC');
-                load_data(search, filter, 'DESC');
+                load_data(search, filter, 'DESC', minimum, maximum);
             }
         })
+        $('#minimum').keyup(function() {
+            var minimum = $(this).val();
+            var search = localStorage.getItem('search');
+            var maximum = localStorage.getItem('maximum');
+            localStorage.setItem('minimum', minimum);
+            var filter = localStorage.getItem('filter');
+            var sort = localStorage.getItem('sort');
 
+            if (search != '') {
+                load_data(search, filter, sort, minimum, maximum);
+            } else {
+                load_data('', filter, sort, minimum, maximum);
+            }
+        });
+
+        $('#maximum').keyup(function() {
+            var search = localStorage.getItem('search');
+            var minimum = localStorage.getItem('minimum');
+            var maximum = $(this).val();
+            localStorage.setItem('maximum', maximum);
+            var filter = localStorage.getItem('filter');
+            var sort = localStorage.getItem('sort');
+            if (search != '') {
+                load_data(search, filter, sort, minimum, maximum);
+            } else {
+                load_data('', filter, sort, minimum, maximum);
+            }
+        });
 
     });
 
