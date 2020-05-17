@@ -10,7 +10,6 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                <a class="navbar-brand" href="#pablo">Dashboard</a>
             </div>
         </div>
     </nav>
@@ -19,8 +18,8 @@
         <div class="col-lg-11 col-md mt-4 ml-4">
             <div class="card card-chart">
                 <div class="card-header">
-                    <h5 class="card-category">Global Sales</h5>
-                    <h4 class="card-title">Add Products</h4>
+                    <h5 class="card-category">Anjay Gurinjay!</h5>
+                    <h4 class="card-title">Product List</h4>
                 </div>
                 <div class="card-body m-4">
                     <div class="container">

@@ -19,8 +19,8 @@
          <div class="col-lg-11 col-md mt-4 ml-4">
              <div class="card card-chart">
                  <div class="card-header">
-                     <h5 class="card-category">Global Sales</h5>
-                     <h4 class="card-title">Add Products</h4>
+                     <h5 class="card-category"></h5>
+                     <h4 class="card-title">Registered User</h4>
                  </div>
                  <div class="card-body m-4">
 
@@ -29,8 +29,8 @@
                          <thead class="thead-dark">
                              <tr>
                                  <th scope="col">#</th>
-                                 <th scope="col">User</th>
-                                 <th scope="col">Email</th>
+                                 <th scope="col">User Email</th>
+                                 <th scope="col">Activated</th>
                                  <th scope="col">Action</th>
                              </tr>
                          </thead>
@@ -39,8 +39,13 @@
                                 foreach ($users as $u) : ?>
                                  <tr>
                                      <th scope="row"><?= $i++ ?></th>
-                                     <td><?= $u['profile_picture'] ?></td>
                                      <td><?= $u['email'] ?></td>
+
+                                     <?php if ($u['is_active'] == 1) : ?>
+                                         <td class="text-success">Email Activated</td>
+                                     <?php else : ?>
+                                         <td class="text-black-50">Email Is Not Activated</td>
+                                     <?php endif; ?>
                                      <td>
                                          <!-- Button trigger modal -->
                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#details<?= $u['user_id'] ?>">
@@ -60,12 +65,18 @@
                                                  <div class="modal-body">
                                                      <div class="container">
                                                          <div class="row">
-                                                             <div class="col col-md">
-                                                                 <img src="<?= base_url(); ?>assets/img/profile/<?= $u['profile_picture'] ?>" class="img-fluid" alt="">
+                                                             <div class="col-md">
+                                                                 <img src="<?= base_url(); ?>assets/img/profile/<?= $u['profile_picture'] ?>" class="img-fluid my-auto m-auto mx-auto" alt="">
                                                              </div>
                                                              <div class="col col-md text-center">
-                                                                  <h3>Nama</h3>
-                                                                  <p class="muted-text">gender</p>
+                                                                 <h3>Nama : <?= $u['first_name'] . ' ' . $u['last_name'] ?></h3>
+                                                                 <p>Gender : <?= $u['gender'] ?></p>
+                                                                 <p>Phone Number : <?= $u['phone_number'] ?></p>
+                                                                 <p>Email : <?= $u['email'] ?></p>
+                                                                 <p>City : <?= $u['city'] ?></p>
+                                                                 <p>Post Code : <?= $u['post_code'] ?></p>
+                                                                 <p>Birthday : <?= $u['birthday'] ?></p>
+                                                                 <p>Address : <?= $u['address'] ?></p>
                                                              </div>
                                                          </div>
                                                      </div>
