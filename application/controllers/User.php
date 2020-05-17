@@ -192,18 +192,24 @@ class User extends CI_Controller
         if ($user) {
             //cek password
             if (password_verify($password, $user['password'])) {
-                $data = [
-                    'email' => $user['email'],
-                    'role_id' => $user['role_id'],
-                    'user_id' => $user['user_id']
-                ];
-                $this->session->set_userdata($data);
-                //var_dump($this->session->userdata(['email']));
-                // die;
-                if ($user['role_id'] == 1) {
-                    redirect('admin');
+                if ($user['is_active'] == 1) {
+                    $data = [
+                        'email' => $user['email'],
+                        'role_id' => $user['role_id'],
+                        'user_id' => $user['user_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    //var_dump($this->session->userdata(['email']));
+                    // die;
+                    if ($user['role_id'] == 1) {
+                        redirect('admin');
+                    } else {
+                        redirect('user');
+                    }
                 } else {
-                    redirect('user');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    Inactive account!Please check your email to activate</div>');
+                    redirect('user/login');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
@@ -244,7 +250,7 @@ class User extends CI_Controller
                 'last_name' => htmlspecialchars($this->input->post('lastname', true)),
                 'gender' => $this->input->post('gender'),
                 'phone_number' => '',
-                'email' => $email,
+                'email' => htmlspecialchars($email),
                 'city' => '',
                 'post_code' => '',
                 'birthday' => $this->input->post('date'),
@@ -253,12 +259,177 @@ class User extends CI_Controller
                 'role_id' => 2,
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT)
             ];
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token
+            ];
 
             $this->db->insert('users', $data);
+            $this->db->insert('token', $user_token);
+            $this->_send_email($token, 'verify');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Congratulation! Your Account has been created. Please Log In!</div>');
+            Congratulation! Your Account has been created. Check your email to activate your account!</div>');
 
             redirect('user/login');
+        }
+    }
+
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
+
+        $user = $this->db->get_where('users', ['email' => $email])->row_array();
+
+        if ($user) {
+            $user_token = $this->db->get_where('token', ['token' => $token])->row_array();
+            if ($user_token) {
+                $this->db->set('is_active', 1);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+
+                $this->db->delete('token', ['email' => $email]);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Your Account has been activated. Login to shop now</div>');
+                redirect('user/login');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Invalid token!</div>');
+                redirect('user/login');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Unregistered Email!</div>');
+            redirect('user/login');
+        }
+    }
+
+    private function _send_email($token, $type)
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'GelarTiker.noreply@gmail.com',
+            'smtp_pass' => '1@3$5^7*9)',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+
+
+        $this->load->library('email', $config);
+        // $this->email->initialize($config);
+        $this->email->from('GelarTiker.noreply@gmail.com', 'Gelar tiker');
+        $this->email->to($this->input->post('email'));
+        if ($type == 'verify') {
+            $this->email->subject('Account verification');
+            $filename = base_url('assets/img/misc/logo.png');
+            $this->email->attach($filename);
+            $cid = $this->email->attachment_cid($filename);
+            $this->email->message('<head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                }
+        
+                @font-face {
+                    font-family: "myFont";
+                    src: url(zavanna.ttf);
+                }
+        
+                body {
+                    background-color: #EEE;
+                }
+        
+                h1 {
+                    margin: 10vh 0 1em 51.5%;
+                    color: #CCC;
+                    font-family: "myFont";
+                }
+        
+                .navbar {
+                    background-color: #fff;
+                    height: 100%;
+                    width: 20%;
+                    float: left;
+                }
+        
+                .content {
+                    width: 100%;
+                    height: 45%;
+                    padding: 5%;
+                    background-color: #FFF;
+                    border-radius: 20px;
+                }
+        
+                .hello {
+                    font-family: Geneva;
+                    font-size: 32px;
+                    padding: 0%;
+                    margin: 0%;
+                }
+        
+                .verify {
+                    font-size: 24px;
+                    width: 70%;
+                    height: 10%;
+                }
+        
+                .link {
+                    color: #00F;
+                }
+        
+                button {
+                    border: solid #000;
+                    border-width: thick;
+                    border-radius: 12px;
+                    padding: 2%;
+                    background-color: #FED136;
+                    margin: 1vh 0 0 35vh;
+                }
+        
+                button:hover {
+                    padding: 3%;
+                    margin: 0 0 0 34.5vh;
+                    border-radius: 8px;
+                }
+        
+                img {
+                    margin-right: 8vh;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <div class="content">
+                <p>Akun kamu telah berhasil dibuat nih.. tinggal selangkah lagi agar kamu dapat segera berbelanja. Cukup dengan
+                    menekan tombol di bawah ini untuk memverifikasi email kamu.</p>
+                <div class="verify">
+                    <a href="' . base_url() . 'user/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '"><button>Verifikasi Email</button></a>
+                </div>
+                <br>
+                <hr>
+                <p align=left>Terima kasih, selamat berbelanja</p>
+                <img src="cid:' . $cid . '" align=left height="80" width="120">
+            </div>
+        </body>
+        
+        </html>');
+        }
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
         }
     }
 
