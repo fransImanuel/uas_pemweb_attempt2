@@ -47,7 +47,7 @@ class User extends CI_Controller
             $i = 1;
             foreach ($data->result() as $p) {
                 if ($p->item_is_active) {
-                    if( empty($this->session->userdata('email') ) ){
+                    if (empty($this->session->userdata('email'))) {
                         $output .= '
                     <div class="col-lg-4 col-sm-6 mb-4 square">
                         <div class="portfolio-item">
@@ -93,7 +93,7 @@ class User extends CI_Controller
                         </div>
                     </div>
                     ';
-                    }else{
+                    } else {
                         $output .= '
                     <div class="col-lg-4 col-sm-6 mb-4 square">
                         <div class="portfolio-item">
@@ -190,18 +190,24 @@ class User extends CI_Controller
         if ($user) {
             //cek password
             if (password_verify($password, $user['password'])) {
-                $data = [
-                    'email' => $user['email'],
-                    'role_id' => $user['role_id'],
-                    'user_id' => $user['user_id']
-                ];
-                $this->session->set_userdata($data);
-                //var_dump($this->session->userdata(['email']));
-                // die;
-                if ($user['role_id'] == 1) {
-                    redirect('admin');
+                if ($user['is_active'] == 1) {
+                    $data = [
+                        'email' => $user['email'],
+                        'role_id' => $user['role_id'],
+                        'user_id' => $user['user_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    //var_dump($this->session->userdata(['email']));
+                    // die;
+                    if ($user['role_id'] == 1) {
+                        redirect('admin');
+                    } else {
+                        redirect('user');
+                    }
                 } else {
-                    redirect('user');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    Inactive account,please check your email to verify!</div>');
+                    redirect('user/login');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
@@ -242,7 +248,7 @@ class User extends CI_Controller
                 'last_name' => htmlspecialchars($this->input->post('lastname', true)),
                 'gender' => $this->input->post('gender'),
                 'phone_number' => '',
-                'email' => $email,
+                'email' => htmlspecialchars($email),
                 'city' => '',
                 'post_code' => '',
                 'birthday' => $this->input->post('date'),
@@ -251,13 +257,41 @@ class User extends CI_Controller
                 'role_id' => 2,
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT)
             ];
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token
+            ];
 
             $this->db->insert('users', $data);
+            $this->_send_email();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Congratulation! Your Account has been created. Please Log In!</div>');
 
             redirect('user/login');
         }
+    }
+
+    private function _send_email()
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'GelarTiker.noreply@gmail.com',
+            'smtp_pass' => '1@3$5^7*9)',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'UTF-8',
+            'protocol' => "\r\n",
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->from('GelarTiker.noreply@gmail.com', 'Gelar Tiker');
+        $this->email->to('GelarTiker.noreply@gmail.com');
+        $this->email->subject('Account Verification');
+        $this->email->message('Account Verification');
+
+        if ($this->email->send());
     }
 
     public function editpage($id)
