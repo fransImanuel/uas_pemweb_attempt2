@@ -12,16 +12,29 @@
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Find Your Favorite Bag</h2>
             <h3 class="section-subheading text-muted">Best Place For Your Fashion</h3>
-            <!-- button buat sort -->
-            <button class="float-left ml-5 mr-3 btn btn-primary" id="sort" onclick="sorting()" data-flag="1"><i class="sortIcon fas fa-fw fa-sort-alpha-down"></i></button>
-            <!-- Search form -->
-            <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" name="search_text" id="search_text" type="text" placeholder="Search" aria-label="Search">
-            </form>
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-2 col-sm-3 col-md-2 ">
+                        <button class="m-0 float-left ml-5 mr-3 btn btn-primary" id="sort" onclick="sorting()" data-flag="1"><i class="sortIcon fas fa-fw fa-sort-alpha-down"></i></button>
+                    </div>
+                    <div class="col-8 col-sm-6 col-md-8">
+                        <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
+                            <i class="fas fa-fw fa-search" aria-hidden="true"></i>
+                            <input class="form-control form-control-sm ml-1 w-75" name="search_text" id="search_text" type="text" placeholder="Search Name / Desc" aria-label="Search">
+                        </form>
+                    </div>
+                    <div class="col-2 col-sm-6 col-md-2">
+                        <form class="form-inline d-flex md-form form-sm active-cyan active-cyan-2 mt-2 mb-3">
+                            <i class="fas fa-fw fa-tags" aria-hidden="true"></i>
+                            <input class=" form-control form-control-sm ml-0 w-75" name="search_text" id="search_text" type="text" placeholder="Price" aria-label="Search">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!-- button buat filter -->
             <div class="category mb-5">
-                    <button class="btn badge badge-primary mr-2 filter" value=""> All </button>| 
+                <button class="btn badge badge-primary mr-2 filter" value=""> All </button>|
                 <?php foreach ($category as $c) : ?>
                     <button class="btn badge badge-primary mr-2 filter" value="<?= $c['category_name'] ?>">
                         <!-- value nya buat identifier filter yg di klik di javascriptnya 
