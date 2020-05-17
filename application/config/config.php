@@ -35,7 +35,7 @@ $config['base_url'] = 'http://localhost/uas_pemweb_2/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
