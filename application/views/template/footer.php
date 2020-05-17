@@ -16,9 +16,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <!-- Third party plugin JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<!-- Contact form JS-->
-<script src="<?= base_url('vendor/agency/'); ?>assets/mail/jqBootstrapValidation.js"></script>
-<script src="<?= base_url('vendor/agency/'); ?>assets/mail/contact_me.js"></script>
 <!-- Core theme JS-->
 <script src="<?= base_url('vendor/agency/'); ?>js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
@@ -111,6 +108,10 @@
             $('.sortIcon').addClass('fa-sort-alpha-down')
             // $.ajax buat asc
         }
+    }
+
+    function ToCart() {
+        window.location.href = '<?= base_url('user/login') ?>';
     }
 
     function addToCart($itemId) {

@@ -73,6 +73,13 @@ class Product extends CI_Controller
     }
 
     public function checkout(){
+        if(empty($this->cart->contents())){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                You Dont Have Any Item too Buy</div>');
+            redirect('product');
+        }
+        $hist_id = rand(1000, 9999);
+
         //transaction
         $dataSession = $this->session->userdata('email');
         $transaction_id = rand(100, 999);
@@ -91,30 +98,56 @@ class Product extends CI_Controller
             }
         }
 
-        //input ke history
-        // $data = [
-        //     'user_id' => $user_id,
-        //     'total_price' => $total_price,
-        //     'total_weight' => $total_weight,
-        //     'transaction_date' => $transaction_date
-        // ];
-        // $this->db->insert('history', $data);
-
-        $history_id = $this->db->get_where('history', [ 'history_id' => $user_id ]);
+        // input ke history
+        $data = [
+            'history_id' => $hist_id,
+            'user_id' => $user_id['user_id'],
+            'total_price' => $total_price,
+            'total_weight' => $total_weight,
+            'transaction_date' => $transaction_date
+        ];
+        $this->db->insert('history', $data);
 
         //input ke history_item
         foreach ($this->cart->contents() as $items) {
             $history_item_id = $items['rowid'];
-            var_dump($history_item_id);die;
+            $history_id = $hist_id;
+            // var_dump($history_item_id);die;
             $item_id = $items['idDb'];
             $item_quantity = $items['qty'];
             $price = $items['subtotal'];
             $weight = $items['options']['Weight'];
-        
-        }die;
-        $data = [
+            
+            $data2 = [
+                'history_item_id' => $history_item_id,
+                'history_id' => $hist_id,
+                'item_id' => $item_id,
+                'item_quantity' => $item_quantity,
+                'price' => $price,
+                'weight' => $weight
+            ];
 
-        ];
+            // var_dump($data2);die;
+
+            $this->db->insert('history_item', $data2);
+
+        }
+        $this->session->set_userdata('checkout', 1);
+        redirect('product/checkoutView');
+    }
+
+    public function checkoutView(){
+        // var_dump($this->session->userdata('checkout'));die;
+        if($this->session->userdata('checkout') != 1){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                No Item for Checkout</div>');
+            redirect('product');
+        }
+
+        $this->cart->destroy();
+        $this->load->view('template/header_2');
+        $this->load->view('user/checkout');
+        $this->load->view('template/footer');
     }
     
     
