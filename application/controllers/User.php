@@ -36,23 +36,41 @@ class User extends CI_Controller
         $output = '';
         $search = '';
         $filter = '';
+        $minimum = '';
+        $maximum = '';
         $this->load->model('ajax_model');
         $search = $this->input->post('search');
-
         $filter = $this->input->post('filter');
-
         $sort = $this->input->post('sort');
-        $data = $this->ajax_model->fetch_data($search, $filter, $sort);
+        $minimum = $this->input->post('minimum');
+        $maximum = $this->input->post('maximum');
+        $data = $this->ajax_model->fetch_data($search, $filter, $sort, $minimum, $maximum);
         if ($data->num_rows() > 0) {
             $i = 1;
             foreach ($data->result() as $p) {
                 if ($p->item_is_active) {
+<<<<<<< Updated upstream
                     $output .= '
                 <div class="col-lg-4 col-sm-6 mb-4 square">
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-toggle="modal" href="#modal-product' . $p->item_id . '">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+=======
+                    if (empty($this->session->userdata('email'))) {
+                        $output .= '
+                    <div class="col-lg-4 col-sm-6 mb-4 square">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-toggle="modal" href="#modal-product' . $p->item_id . '">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid img-thumbnail" src="' . base_url('') . 'assets/img/product/' . $p->item_image . '" alt="" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">' . ucwords($p->item_name) . '</div>
+                                <div class="portfolio-caption-subheading text-muted">' . $p->item_short_desc . '</div>
+>>>>>>> Stashed changes
                             </div>
                             <img class="img-fluid img-thumbnail" src="' . base_url('') . 'assets/img/product/' . $p->item_image . '" alt="" />
                         </a>
@@ -89,8 +107,59 @@ class User extends CI_Controller
                             </div>
                         </div>
                     </div>
+<<<<<<< Updated upstream
                 </div>
                 ';
+=======
+                    ';
+                    } else {
+                        $output .= '
+                    <div class="col-lg-4 col-sm-6 mb-4 square">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-toggle="modal" href="#modal-product' . $p->item_id . '">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid img-thumbnail" src="' . base_url('') . 'assets/img/product/' . $p->item_image . '" alt="" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">' . ucwords($p->item_name) . '</div>
+                                <div class="portfolio-caption-subheading text-muted">' . $p->item_short_desc . '</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal 1-->
+                    <div class="portfolio-modal modal fade" id="modal-product' . $p->item_id . '" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-dismiss="modal"><img src="' . base_url('vendor/agency/') . 'assets/img/close-icon.svg" /></div>
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8">
+                                            <div class="modal-body">
+                                                <!-- Project Details Go Here-->
+                                                <h2 class="text-uppercase">' . ucwords($p->item_name) . '</h2>
+                                                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                                <img class="img-fluid d-block mx-auto" src="' . base_url() . 'assets/img/product/' . $p->item_image . '" alt="" />
+                                                <p class="text-muted">' . $p->item_short_desc . '</p>
+                                                <p>' . $p->item_long_desc . '</p>
+                                                <ul class="list-inline">
+                                                    <li>Price: Rp. ' . $p->item_price . '</li>
+                                                    <li>Weight: ' . $p->item_weight . '</li>
+                                                    <li>Remaining Stock: ' . $p->item_stock . '</li>
+                                                </ul>
+                                                <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="addToCart(' . $p->item_id . ')"><i class="fas fa-cart-plus" ></i>Add to Cart</button>
+                                                <button class="btn btn-secondary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+                    }
+>>>>>>> Stashed changes
                 }
             }
         } else {
@@ -141,18 +210,24 @@ class User extends CI_Controller
         if ($user) {
             //cek password
             if (password_verify($password, $user['password'])) {
-                $data = [
-                    'email' => $user['email'],
-                    'role_id' => $user['role_id'],
-                    'user_id' => $user['user_id']
-                ];
-                $this->session->set_userdata($data);
-                //var_dump($this->session->userdata(['email']));
-                // die;
-                if ($user['role_id'] == 1) {
-                    redirect('admin');
+                if ($user['is_active'] == 1) {
+                    $data = [
+                        'email' => $user['email'],
+                        'role_id' => $user['role_id'],
+                        'user_id' => $user['user_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    //var_dump($this->session->userdata(['email']));
+                    // die;
+                    if ($user['role_id'] == 1) {
+                        redirect('admin');
+                    } else {
+                        redirect('user');
+                    }
                 } else {
-                    redirect('user');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                    Inactive account!Please check your email to activate</div>');
+                    redirect('user/login');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
@@ -193,7 +268,7 @@ class User extends CI_Controller
                 'last_name' => htmlspecialchars($this->input->post('lastname', true)),
                 'gender' => $this->input->post('gender'),
                 'phone_number' => '',
-                'email' => $email,
+                'email' => htmlspecialchars($email),
                 'city' => '',
                 'post_code' => '',
                 'birthday' => $this->input->post('date'),
@@ -202,12 +277,177 @@ class User extends CI_Controller
                 'role_id' => 2,
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT)
             ];
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token
+            ];
 
             $this->db->insert('users', $data);
+            $this->db->insert('token', $user_token);
+            $this->_send_email($token, 'verify');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Congratulation! Your Account has been created. Please Log In!</div>');
+            Congratulation! Your Account has been created. Check your email to activate your account!</div>');
 
             redirect('user/login');
+        }
+    }
+
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
+
+        $user = $this->db->get_where('users', ['email' => $email])->row_array();
+
+        if ($user) {
+            $user_token = $this->db->get_where('token', ['token' => $token])->row_array();
+            if ($user_token) {
+                $this->db->set('is_active', 1);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+
+                $this->db->delete('token', ['email' => $email]);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Your Account has been activated. Login to shop now</div>');
+                redirect('user/login');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Invalid token!</div>');
+                redirect('user/login');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Unregistered Email!</div>');
+            redirect('user/login');
+        }
+    }
+
+    private function _send_email($token, $type)
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'GelarTiker.noreply@gmail.com',
+            'smtp_pass' => '1@3$5^7*9)',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+
+
+        $this->load->library('email', $config);
+        // $this->email->initialize($config);
+        $this->email->from('GelarTiker.noreply@gmail.com', 'Gelar tiker');
+        $this->email->to($this->input->post('email'));
+        if ($type == 'verify') {
+            $this->email->subject('Account verification');
+            $filename = base_url('assets/img/misc/logo.png');
+            $this->email->attach($filename);
+            $cid = $this->email->attachment_cid($filename);
+            $this->email->message('<head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                }
+        
+                @font-face {
+                    font-family: "myFont";
+                    src: url(zavanna.ttf);
+                }
+        
+                body {
+                    background-color: #EEE;
+                }
+        
+                h1 {
+                    margin: 10vh 0 1em 51.5%;
+                    color: #CCC;
+                    font-family: "myFont";
+                }
+        
+                .navbar {
+                    background-color: #fff;
+                    height: 100%;
+                    width: 20%;
+                    float: left;
+                }
+        
+                .content {
+                    width: 100%;
+                    height: 45%;
+                    padding: 5%;
+                    background-color: #FFF;
+                    border-radius: 20px;
+                }
+        
+                .hello {
+                    font-family: Geneva;
+                    font-size: 32px;
+                    padding: 0%;
+                    margin: 0%;
+                }
+        
+                .verify {
+                    font-size: 24px;
+                    width: 70%;
+                    height: 10%;
+                }
+        
+                .link {
+                    color: #00F;
+                }
+        
+                button {
+                    border: solid #000;
+                    border-width: thick;
+                    border-radius: 12px;
+                    padding: 2%;
+                    background-color: #FED136;
+                    margin: 1vh 0 0 35vh;
+                }
+        
+                button:hover {
+                    padding: 3%;
+                    margin: 0 0 0 34.5vh;
+                    border-radius: 8px;
+                }
+        
+                img {
+                    margin-right: 8vh;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <div class="content">
+                <p>Akun kamu telah berhasil dibuat nih.. tinggal selangkah lagi agar kamu dapat segera berbelanja. Cukup dengan
+                    menekan tombol di bawah ini untuk memverifikasi email kamu.</p>
+                <div class="verify">
+                    <a href="' . base_url() . 'user/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '"><button>Verifikasi Email</button></a>
+                </div>
+                <br>
+                <hr>
+                <p align=left>Terima kasih, selamat berbelanja</p>
+                <img src="cid:' . $cid . '" align=left height="80" width="120">
+            </div>
+        </body>
+        
+        </html>');
+        }
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
         }
     }
 

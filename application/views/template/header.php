@@ -16,6 +16,20 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="<?= base_url(); ?>/vendor/agency/css/styles.css" rel="stylesheet" />
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -37,8 +51,8 @@
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Hello, <?= $name ?></a></li>
                             </button>
                             <div class="dropdown-menu">
-                                <?php $link_url = 'user/editpage/'.$this->session->userdata('user_id'); ?>
-                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"".base_url($link_url)."\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
+                                <?php $link_url = 'user/editpage/' . $this->session->userdata('user_id'); ?>
+                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"" . base_url($link_url) . "\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
                                 <?php if ($this->session->userdata('role_id') == 1) : ?>
                                     <a class="dropdown-item " href="<?= base_url('admin') ?>"><i class="fas fa-users-cog"></i> Admin Menu</a>
                                 <?php else : ?>
