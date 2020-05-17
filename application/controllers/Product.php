@@ -106,8 +106,8 @@ class Product extends CI_Controller
             'total_price' => $total_price,
             'total_weight' => $total_weight,
             'transaction_date' => $transaction_date,
-            'delivery_address' => '',
-            'delivery_post' => ''
+            'delivery_address' => $user_id['address'],
+            'delivery_post' => $user_id['post_code']
         ];
         $this->db->insert('history', $data);
 

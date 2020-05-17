@@ -344,4 +344,17 @@ class Admin extends CI_Controller
         $this->load->view('admin/userlist', $data);
         $this->load->view('admin_template/footer');
     }
+
+    public function transactionHistory(){
+        $data['title'] = "Admin | Transaction History";
+
+        $this->db->select('history.*,  users.email');
+        $this->db->join('users', 'history.user_id = users.user_id');
+        $data['history'] = $this->db->get('history')->result_array();
+        // var_dump($data['history']);die;
+        $this->load->view('admin_template/header', $data);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/transactionHistory', $data);
+        $this->load->view('admin_template/footer');
+    }
 }

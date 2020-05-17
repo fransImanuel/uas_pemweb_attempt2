@@ -38,6 +38,12 @@
                             <p>Registered List</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?= base_url('admin/transactionHistory') ?>">
+                            <i class="fas fa-fw fa-history"></i>
+                            <p>Transaction History</p>
+                        </a>
+                    </li>
                     <li class="active-pro">
                         <a href="<?= base_url('user'); ?>">
                             <i class="now-ui-icons arrows-1_minimal-left"></i>

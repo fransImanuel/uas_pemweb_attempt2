@@ -25,7 +25,7 @@
                  <div class="card-body m-4">
 
                      <?= $this->session->flashdata('message'); ?>
-                     <table class="table">
+                     <table class="table table-hover">
                          <thead class="thead-dark">
                              <tr>
                                  <th scope="col">#</th>

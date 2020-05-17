@@ -19,19 +19,35 @@
             <div class="card card-chart">
                 <div class="card-header">
                     <h5 class="card-category">Anjay Gurinjay!</h5>
-                    <h4 class="card-title">Product List</h4>
+                    <h4 class="card-title">Transaction History</h4>
                 </div>
                 <div class="card-body m-4">
                     <div class="container">
                         <div class="form-group">
-                            <?= $this->session->flashdata('message'); ?>
-                            <div class="input-group">
-                                <input type="text" name="search_text" id="search_text" class="form-control" placeholder="SearchBar">
-                            </div>
                         </div>
                     </div>
-                    <div id="result">
-                    </div>
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Transaction Date</th>
+                                <th scope="col">Total Price</th>
+                                <th scope="col">Delivery Address</th>
+                                <th scope="col">Delivery Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($history as $h) : ?>
+                                <tr>
+                                    <th scope="row"><?= $h['email'] ?></th>
+                                    <td><?= $h['transaction_date'] ?></td>
+                                    <td><?= $h['total_price'] ?></td>
+                                    <td><?= $h['delivery_address'] ?></td>
+                                    <td><?= $h['delivery_post'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
                     </tbody>
                     </table>
@@ -43,32 +59,3 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-
-            load_data();
-
-            function load_data(query) {
-                $.ajax({
-                    url: "<?php echo base_url(); ?>admin/fetch",
-                    method: "POST",
-                    data: {
-                        query: query
-                    },
-                    success: function(data) {
-                        $('#result').html(data);
-                    }
-                })
-            }
-
-            $('#search_text').keyup(function() {
-                var search = $(this).val();
-                if (search != '') {
-                    load_data(search);
-                } else {
-                    load_data();
-                }
-            });
-        });
-    </script>

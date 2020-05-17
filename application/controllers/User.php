@@ -62,6 +62,7 @@ class User extends CI_Controller
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">' . ucwords($p->item_name) . '</div>
                                 <div class="portfolio-caption-subheading text-muted">' . $p->item_short_desc . '</div>
+                                <div class="portfolio-caption-subheading text-muted">Rp. ' . number_format($p->item_price, 2, ',', '.') . '</div>
                             </div>
                         </div>
                     </div>
@@ -81,7 +82,7 @@ class User extends CI_Controller
                                                 <p class="text-muted">' . $p->item_short_desc . '</p>
                                                 <p>' . $p->item_long_desc . '</p>
                                                 <ul class="list-inline">
-                                                    <li>Price: Rp. ' . $p->item_price . '</li>
+                                                    <li><h1>Price: Rp. ' . $p->item_price . '</h1></li>
                                                     <li>Weight: ' . $p->item_weight . '</li>
                                                     <li> <p class="text-muted">Remaining Stock: ' . $p->item_stock . '</p></li>
                                                 </ul>
@@ -108,6 +109,7 @@ class User extends CI_Controller
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">' . ucwords($p->item_name) . '</div>
                                 <div class="portfolio-caption-subheading text-muted">' . $p->item_short_desc . '</div>
+                                <div class="portfolio-caption-subheading text-muted">Rp. ' . number_format($p->item_price, 2, ',', '.') . '</div>
                             </div>
                         </div>
                     </div>
@@ -127,7 +129,7 @@ class User extends CI_Controller
                                                 <p class="text-muted">' . $p->item_short_desc . '</p>
                                                 <p>' . $p->item_long_desc . '</p>
                                                 <ul class="list-inline">
-                                                    <li>Price: Rp. ' . $p->item_price . '</li>
+                                                    <li><h1>Price: Rp. ' . $p->item_price . '</h1></li>
                                                     <li>Weight: ' . $p->item_weight . '</li>
                                                     <li>Remaining Stock: ' . $p->item_stock . '</li>
                                                 </ul>
