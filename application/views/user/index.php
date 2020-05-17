@@ -53,61 +53,61 @@
 <section class="page-section" id="about">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Proses Pemesanan Kami</h2>
+            <h3 class="section-subheading text-muted">Seluruh sistem fulfillment kami dijamin kualitasnya untuk memberikan pelayanan terbaik.</h3>
         </div>
         <ul class="timeline">
             <li>
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/about/1.jpg" alt="" /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/payment_confirmation.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>2009-2011</h4>
-                        <h4 class="subheading">Our Humble Beginnings</h4>
+                        <h4>Tahap Pertama</h4>
+                        <h4 class="subheading">Pemesanan dan Konfirmasi Pembayaran</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                        <p class="text-muted">Setelah memilih barang yang ingin anda beli, silahkan melakukan finalisasi pemesanan dan melakukan pembayaran di mitra pembayaran kami yang telah ditunjuk.</p>
                     </div>
                 </div>
             </li>
             <li class="timeline-inverted">
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/about/2.jpg" alt="" /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/warehouse.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>March 2011</h4>
-                        <h4 class="subheading">An Agency is Born</h4>
+                        <h4>Tahap Kedua</h4>
+                        <h4 class="subheading">Pesanan Diproses</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                        <p class="text-muted">Setelah pembayaran terkonfirmasi, tim warehouse kami akan mempersiapkan barang-barang untuk memenuhi pemesanan anda.</p>
                     </div>
                 </div>
             </li>
             <li>
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/about/3.jpg" alt="" /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/shipment.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>December 2012</h4>
-                        <h4 class="subheading">Transition to Full Service</h4>
+                        <h4>Tahap Ketiga</h4>
+                        <h4 class="subheading">Pengiriman</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                        <p class="text-muted">Pesanan anda yang telah selesai diproses akan segera dikirim dengan kurir yang sudah bekerjasama dengan kami.</p>
                     </div>
                 </div>
             </li>
             <li class="timeline-inverted">
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('vendor/agency/'); ?>assets/img/about/4.jpg" alt="" /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="<?= base_url('assets/img/misc/done.jpg'); ?>" alt="" /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>July 2014</h4>
-                        <h4 class="subheading">Phase Two Expansion</h4>
+                        <h4>Tahap Keempat</h4>
+                        <h4 class="subheading">Penyelesaian Pesanan</h4>
                     </div>
                     <div class="timeline-body">
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                        <p class="text-muted">Setelah pesanan berhasil diterima, silahka mengkonfirmasi penyelesaian pesanan atau hubungi kami apabila terdapat suatu masalah dengan produk tersebut.</p>
                     </div>
                 </div>
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-image">
-                    <h4>Be Part<br />Of Our<br />Story!</h4>
+                    <h4> Use it <br/> and <br/> Enjoy!</h4>
                 </div>
             </li>
         </ul>
