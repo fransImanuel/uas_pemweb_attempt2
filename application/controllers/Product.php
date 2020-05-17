@@ -71,6 +71,8 @@ class Product extends CI_Controller
     }
 
     public function checkout(){
+        // var_dump($this->cart->total_items());
+        // die;
         if(empty($this->cart->contents())){
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 You Dont Have Any Item too Buy</div>');
@@ -108,7 +110,6 @@ class Product extends CI_Controller
         }
 
         //ngurangin jumlah produk yang ada di database sesuai dengan qty yg dibeli
-
         // var_dump($user_id);die;
         // input ke history
         $data = [
@@ -145,22 +146,16 @@ class Product extends CI_Controller
             //buat update stock            
             $dataItem = $this->db->get_where('item', [ 'item_id' => $item_id ])->row_array();
             $minusQty = $dataItem['item_stock']-$item_quantity;
-
-            
-
             $this->db->where('item_id', $item_id);
             $this->db->update('item', ['item_stock' => $minusQty] );
             
         }
-
-        
-
         $this->session->set_userdata('checkout', 1);
         redirect('product/checkoutView');
     }
 
     public function checkoutView(){
-        if($this->session->userdata('checkout') != 1){
+        if($this->cart->total_items() == 0){
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 No Item for Checkout</div>');
             redirect('product');
@@ -187,7 +182,7 @@ class Product extends CI_Controller
             $data['transaction'][$i]['details'.$i] = $this->db->get_where('history_item', [ 'history_id' => $d['history_id'] ])->result_array();
             $i++;
         }
-        // var_dump($data['transaction'][0]['details0'][0]);die;
+        // var_dump($data['transaction']);die;
         
 
         $this->load->view('template/header_2');
