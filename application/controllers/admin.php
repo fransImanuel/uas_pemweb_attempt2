@@ -32,23 +32,10 @@ class Admin extends CI_Controller
         $statQuery = $this->db->get('history_item')->result_object();
         $data['product'] = json_encode($statQuery);
 
-        // $data['product'] = $this->db->get('history_item')->result_array();
-
-        // var_dump(json_decode($data['product']));die;
-
-
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/index', $data);
         $this->load->view('admin_template/footer', $data);
-    }
-
-    public function chart()
-    {
-        $this->load->view('admin_template/header');
-        $this->load->view('admin_template/sidebar');
-        $this->load->view('admin/chart');
-        $this->load->view('admin_template/footer');
     }
 
     function fetch()
@@ -209,8 +196,6 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('shortproductdesc', 'Short Product Description', 'required|trim|max_length[255]');
         $this->form_validation->set_rules('longproductdesc', 'Detail Product Description', 'required|trim');
         $this->form_validation->set_rules('category', 'Cateogry', 'required|trim|numeric');
-        // var_dump($_FILES);
-        // die;
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin_template/header', $data);
@@ -218,16 +203,12 @@ class Admin extends CI_Controller
             $this->load->view('admin/create', $data);
             $this->load->view('admin_template/footer');
         } else {
-            // var_dump($_FILES);die;
-
             $config['upload_path'] = './assets/img/product/';
             $config['allowed_types'] = 'jpg|png';
             $config['max_size']     = '2048';
 
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-
-            // var_dump($this->upload->do_upload('productimage'));die;
 
             if ($this->upload->do_upload('productimage')) {
                 $new_image = $this->upload->data('file_name');
@@ -261,7 +242,6 @@ class Admin extends CI_Controller
         $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , category.category_name');
         $this->db->join('category', 'category.category_id = item.item_category');
         $data['product'] = $this->db->get_where('item', ['item_is_active' => 1])->result_object();
-        // var_dump($data['product']);die;
 
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
@@ -273,7 +253,6 @@ class Admin extends CI_Controller
     {
         $id_product = $this->input->post('id');
         $is_active = $this->input->post('is_active');
-        // var_dump($id_product);   
 
         if ($is_active == 1) {
             $data = [
@@ -293,7 +272,6 @@ class Admin extends CI_Controller
 
     public function editProduct()
     {
-
         $data['id'] = $this->uri->segment(3);
 
         $this->db->select('item.item_id, item.item_name, item.item_image, item.item_price, item.item_stock, item.item_weight, item.item_short_desc, item.item_long_desc, item.item_is_active , item.item_Category, category.category_name');
@@ -322,8 +300,6 @@ class Admin extends CI_Controller
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
-            // var_dump($this->upload->do_upload('productimage'));die;
-
             if ($this->upload->do_upload('productimage')) {
                 $new_image = $this->upload->data('file_name');
 
@@ -340,7 +316,6 @@ class Admin extends CI_Controller
                 $this->db->where('item_id', $data['id']);
                 $this->db->update('item', $edit_data);
             } else {
-                // var_dump($data['id']);die;
                 $edit_data = [
                     'item_name' => $this->input->post('productname'),
                     'item_price' => $this->input->post('productprice'),
@@ -350,8 +325,6 @@ class Admin extends CI_Controller
                     'item_short_desc' => $this->input->post('shortproductdesc'),
                     'item_category' => $this->input->post('category')
                 ];
-                // var_dump($data);
-                // die;
                 $this->db->where('item_id', $data['id']);
                 $this->db->update('item', $edit_data);
             }
@@ -366,7 +339,6 @@ class Admin extends CI_Controller
 
         $data['title'] = "Admin | User List";
         $data['users'] = $this->db->get('users')->result_array();
-        // var_dump($date);die;
         $this->load->view('admin_template/header', $data);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/userlist', $data);
