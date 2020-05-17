@@ -39,12 +39,6 @@
                         </a>
                     </li>
                     <li class="active-pro">
-                        <a href="<?= base_url('admin/transactionHistory'); ?>">
-                            <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            <p>Transaction History</p>
-                        </a>
-                    </li>
-                    <li class="active-pro">
                         <a href="<?= base_url('user'); ?>">
                             <i class="now-ui-icons arrows-1_minimal-left"></i>
                             <p>Back to User Page</p>

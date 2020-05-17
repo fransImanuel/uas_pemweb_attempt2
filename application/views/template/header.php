@@ -38,17 +38,17 @@
                                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Hello, <?= $name ?></a></li>
                             </button>
                             <div class="dropdown-menu">
-                                <?php $link_url = 'user/editpage/'.$this->session->userdata('user_id'); ?>
-                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"".base_url($link_url)."\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
+                                <?php $link_url = 'user/editpage/' . $this->session->userdata('user_id'); ?>
+                                <?php if ($this->session->userdata('role_id') != 1) echo "<a class=\"dropdown-item\" href=\"" . base_url($link_url) . "\"><i class=\"fas fa-user-edit\"></i> Edit Profile</a>"; ?>
                                 <?php if ($this->session->userdata('role_id') == 1) : ?>
                                     <a class="dropdown-item " href="<?= base_url('admin') ?>"><i class="fas fa-users-cog"></i> Admin Menu</a>
-                                    <?php else : ?>
-                                        <?php endif; ?>
-                                        <hr>
-                                        <a class="dropdown-item" href="<?= base_url('user/logout') ?>"><i class="fas fa-sign-in-alt"></i> Log Out</a>
-                                    </div>
-                                </div>
-                                
+                                <?php endif; ?>
+                                <a class="dropdown-item" href="<?= base_url('product/transactionHistory').'/'. $this->session->userdata('user_id'); ?>"><i class="fas fa-history"></i> Transaction History</a>
+                                <hr>
+                                <a class="dropdown-item" href="<?= base_url('user/logout') ?>"><i class="fas fa-sign-in-alt"></i> Log Out</a>
+                            </div>
+                        </div>
+
                     <?php else : ?>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('user/login'); ?>"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
 

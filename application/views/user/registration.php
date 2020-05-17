@@ -21,11 +21,11 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Password">
-                                    <?php echo form_error('password', '<small class="text-danger ">', '</small>'); ?>
+                                    <?php echo form_error('password1', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
-                                    <?php echo form_error('password', '<small class="text-danger ">', '</small>'); ?>
+                                    <?php echo form_error('password2', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="firstname" name="firstname" placeholder="First Name.." value="<?= set_value('firstname') ?>">

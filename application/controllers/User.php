@@ -81,7 +81,7 @@ class User extends CI_Controller
                                                 <ul class="list-inline">
                                                     <li>Price: Rp. ' . $p->item_price . '</li>
                                                     <li>Weight: ' . $p->item_weight . '</li>
-                                                    <li>Remaining Stock: ' . $p->item_stock . '</li>
+                                                    <li> <p class="text-muted">Remaining Stock: ' . $p->item_stock . '</p></li>
                                                 </ul>
                                                 <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="ToCart()"><i class="fas fa-cart-plus" ></i>Add to Cart</button>
                                                 <button class="btn btn-secondary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close</button>

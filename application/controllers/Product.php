@@ -12,7 +12,7 @@ class Product extends CI_Controller
     }
 
     public function index(){
-
+        $this->session->set_userdata('checkout', 0);
         // var_dump($this->uri->segment('1'));die;
         $data['section'] = $this->uri->segment('1');
         if ($this->session->userdata('email')) {
@@ -41,7 +41,6 @@ class Product extends CI_Controller
         );
 
         $this->cart->insert($data);
-        
     }
 
     public function updatecart(){
@@ -52,9 +51,8 @@ class Product extends CI_Controller
             //buat ngecek ke database jumlah barang yg di beli sama stok yg ada
             $query = $this->db->get_where('item' , ['item_id' => $dataProduct[$i]['itemid'] ])->result_array();
             if( intval($dataProduct[$i]['qty']) > intval($query[0]['item_stock']) ){
-                $this->session->set_flashdata('keterangan', $query[0]['item_name']);
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                Insufficient Stock For Certain Product</div>');
+                Insufficient Stock For Certain Product <strong>'. ucwords($query[0]['item_name']) .'</strong> </div>');
                 redirect('product');
             }            
             $data = array(
@@ -82,7 +80,7 @@ class Product extends CI_Controller
 
         //transaction
         $dataSession = $this->session->userdata('email');
-        $transaction_id = rand(100, 999);
+        // $transaction_id = rand(100, 999);
         $user_id = $this->db->get_where('users', ['email' => $dataSession ] )->row_array();
         $total_price = $this->cart->total();
         $transaction_date = date("Y-m-d");
@@ -98,13 +96,18 @@ class Product extends CI_Controller
             }
         }
 
+        //ngurangin jumlah produk yang ada di database sesuai dengan qty yg dibeli
+
+        // var_dump($user_id);die;
         // input ke history
         $data = [
             'history_id' => $hist_id,
             'user_id' => $user_id['user_id'],
             'total_price' => $total_price,
             'total_weight' => $total_weight,
-            'transaction_date' => $transaction_date
+            'transaction_date' => $transaction_date,
+            'delivery_address' => '',
+            'delivery_post' => ''
         ];
         $this->db->insert('history', $data);
 
@@ -126,18 +129,26 @@ class Product extends CI_Controller
                 'price' => $price,
                 'weight' => $weight
             ];
-
-            // var_dump($data2);die;
-
             $this->db->insert('history_item', $data2);
+            
+            //buat update stock            
+            $dataItem = $this->db->get_where('item', [ 'item_id' => $item_id ])->row_array();
+            $minusQty = $dataItem['item_stock']-$item_quantity;
 
+            
+
+            $this->db->where('item_id', $item_id);
+            $this->db->update('item', ['item_stock' => $minusQty] );
+            
         }
+
+        
+
         $this->session->set_userdata('checkout', 1);
         redirect('product/checkoutView');
     }
 
     public function checkoutView(){
-        // var_dump($this->session->userdata('checkout'));die;
         if($this->session->userdata('checkout') != 1){
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 No Item for Checkout</div>');
@@ -149,7 +160,28 @@ class Product extends CI_Controller
         $this->load->view('user/checkout');
         $this->load->view('template/footer');
     }
-    
-    
 
+    public function transactionHistory(){
+        if($this->session->userdata('user_id') != $this->uri->segment(3)){
+            redirect('user');
+        }
+        $data['transaction'] = $this->db->get_where('history', ['user_id' => $this->uri->segment(3) ])->result_array();
+
+        // var_dump($data['transaction']);die;
+        $i = 0;
+        foreach($data['transaction'] as $d){
+            $this->db->select('history_item.* , item.item_name, item.item_category, category.category_name ');
+            $this->db->join('item', 'history_item.item_id = item.item_id');
+            $this->db->join('category', 'item.item_category = category.category_id');
+            $data['transaction'][$i]['details'.$i] = $this->db->get_where('history_item', [ 'history_id' => $d['history_id'] ])->result_array();
+            $i++;
+        }
+        // var_dump($data['transaction'][0]['details0'][0]);die;
+        
+
+        $this->load->view('template/header_2');
+        $this->load->view('user/transactionHistory', $data);
+        $this->load->view('template/footer');
+    }
+    
 }
