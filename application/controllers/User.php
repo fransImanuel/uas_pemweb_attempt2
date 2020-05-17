@@ -295,41 +295,91 @@ class User extends CI_Controller
 
         $post = $this->input->post();
         $this->user_id = $post['user_id'];
+        $this->email = $post['email'];
         $this->first_name = $post['first_name'];
         $this->last_name = $post['last_name'];
         $this->birthday = $post['birthday'];
         $this->gender = $post['gender'];
         $this->profile_picture = $this->UploadImage();
+        $this->phone_number = $post['phone_number'];
+        $this->address = $post['address'];
+        $this->city = $post['city'];
+        $this->post_code = $post['post_code'];
+        $this->password_update = $post['password3'];
 
-        $this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');
         $this->form_validation->set_rules('birthday', 'Birthday', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('profile_picture', 'Profile Picture', 'callback_image_check');
+        $this->form_validation->set_rules('password3', 'Password', 'trim|min_length[6]|matches[password4]');
+        $this->form_validation->set_rules('password4', 'Confirm Password', 'trim|matches[password3]');
+        $this->form_validation->set_rules('phone_number', 'Nomor HP', 'required');
+        $this->form_validation->set_rules('address', 'Alamat', 'required');
+        $this->form_validation->set_rules('city', 'Kota', 'required');
+        $this->form_validation->set_rules('post_code', 'Kode Pos', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->editpage($this->user_id);
-        } else {
-            $where = array(
-                'user_id'        => $this->user_id
+		if ($this->form_validation->run() == FALSE) {
+			$this->editpage($this->user_id);
+		} else {
+			$where = array(
+				'user_id'		=> $this->user_id
             );
-            if ($this->profile_picture != null) {
+            if ($this->profile_picture != null && $this->password_update != null) {
                 $values = array(
+                    'email' => $this->email,
                     'first_name'        => $this->first_name,
                     'last_name'            => $this->last_name,
                     'birthday'            => $this->birthday,
                     'gender'            => $this->gender,
-                    'profile_picture'   => $this->profile_picture
+                    'profile_picture'   => $this->profile_picture,
+                    'password' => password_hash($this->input->post('password3'), PASSWORD_DEFAULT),
+                    'phone_number' => $this->phone_number,
+                    'address' => $this->address,
+                    'city' => $this->city,
+                    'post_code' => $this->post_code
                 );
-            } else {
+            } 
+            else if ($this->profile_picture != null && $this->password_update == null) {
                 $values = array(
+                    'email' => $this->email,
                     'first_name'        => $this->first_name,
                     'last_name'            => $this->last_name,
                     'birthday'            => $this->birthday,
-                    'gender'            => $this->gender
+                    'gender'            => $this->gender,
+                    'profile_picture'   => $this->profile_picture,
+                    'phone_number' => $this->phone_number,
+                    'address' => $this->address,
+                    'city' => $this->city,
+                    'post_code' => $this->post_code
                 );
             }
-
+            else if ($this->profile_picture == null && $this->password_update != null) {
+                $values = array(
+                    'email' => $this->email,
+                    'first_name'        => $this->first_name,
+                    'last_name'            => $this->last_name,
+                    'birthday'            => $this->birthday,
+                    'gender'            => $this->gender,
+                    'password' => password_hash($this->input->post('password3'), PASSWORD_DEFAULT),
+                    'phone_number' => $this->phone_number,
+                    'address' => $this->address,
+                    'city' => $this->city,
+                    'post_code' => $this->post_code
+                );
+            }
+            else {
+                $values = array(
+                    'email' => $this->email,
+                    'first_name'        => $this->first_name,
+                    'last_name'            => $this->last_name,
+                    'birthday'            => $this->birthday,
+                    'gender'            => $this->gender,
+                    'phone_number' => $this->phone_number,
+                    'address' => $this->address,
+                    'city' => $this->city,
+                    'post_code' => $this->post_code
+                );
+            }
             $this->db->where($where);
             $this->db->update('users', $values);
             redirect('user');
