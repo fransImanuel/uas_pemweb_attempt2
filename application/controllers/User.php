@@ -36,18 +36,20 @@ class User extends CI_Controller
         $output = '';
         $search = '';
         $filter = '';
+        $minimum = '';
+        $maximum = '';
         $this->load->model('ajax_model');
         $search = $this->input->post('search');
-
         $filter = $this->input->post('filter');
-
         $sort = $this->input->post('sort');
-        $data = $this->ajax_model->fetch_data($search, $filter, $sort);
+        $minimum = $this->input->post('minimum');
+        $maximum = $this->input->post('maximum');
+        $data = $this->ajax_model->fetch_data($search, $filter, $sort, $minimum, $maximum);
         if ($data->num_rows() > 0) {
             $i = 1;
             foreach ($data->result() as $p) {
                 if ($p->item_is_active) {
-                    if( empty($this->session->userdata('email') ) ){
+                    if (empty($this->session->userdata('email'))) {
                         $output .= '
                     <div class="col-lg-4 col-sm-6 mb-4 square">
                         <div class="portfolio-item">
@@ -93,7 +95,7 @@ class User extends CI_Controller
                         </div>
                     </div>
                     ';
-                    }else{
+                    } else {
                         $output .= '
                     <div class="col-lg-4 col-sm-6 mb-4 square">
                         <div class="portfolio-item">
