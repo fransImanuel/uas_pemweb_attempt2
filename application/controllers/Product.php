@@ -77,10 +77,44 @@ class Product extends CI_Controller
         $dataSession = $this->session->userdata('email');
         $transaction_id = rand(100, 999);
         $user_id = $this->db->get_where('users', ['email' => $dataSession ] )->row_array();
-        $total_price = $this->cart->contents();
-        $transaction_date = date("Y/m/d");
-        var_dump($total_price);die;
+        $total_price = $this->cart->total();
+        $transaction_date = date("Y-m-d");
 
+        $total_weight = 0;
+        $temp = 0;
+        foreach($this->cart->contents() as $items){
+            foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value){
+                if($option_name == 'Weight'){
+                    $temp = $option_value * $items['qty'];
+                    $total_weight += $temp;
+                }
+            }
+        }
+
+        //input ke history
+        // $data = [
+        //     'user_id' => $user_id,
+        //     'total_price' => $total_price,
+        //     'total_weight' => $total_weight,
+        //     'transaction_date' => $transaction_date
+        // ];
+        // $this->db->insert('history', $data);
+
+        $history_id = $this->db->get_where('history', [ 'history_id' => $user_id ]);
+
+        //input ke history_item
+        foreach ($this->cart->contents() as $items) {
+            $history_item_id = $items['rowid'];
+            var_dump($history_item_id);die;
+            $item_id = $items['idDb'];
+            $item_quantity = $items['qty'];
+            $price = $items['subtotal'];
+            $weight = $items['options']['Weight'];
+        
+        }die;
+        $data = [
+
+        ];
     }
     
     

@@ -21,6 +21,7 @@
             </form>
             <!-- button buat filter -->
             <div class="category mb-5">
+                    <button class="btn badge badge-primary mr-2 filter" value=""> All </button>| 
                 <?php foreach ($category as $c) : ?>
                     <button class="btn badge badge-primary mr-2 filter" value="<?= $c['category_name'] ?>">
                         <!-- value nya buat identifier filter yg di klik di javascriptnya 
