@@ -25,10 +25,6 @@
                                     <?php echo form_error('id', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= $detail['email'] ?>">
-                                    <?php echo form_error('email', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="first_name" name="first_name" placeholder="First Name.." value="<?= $detail['first_name'] ?>">
                                     <?php echo form_error('first_name', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
@@ -47,32 +43,6 @@
                                         <option value="F" <?php if ($detail['gender'] == "F") echo "selected";?>>Female</option>
                                     </select>
                                     <?php echo form_error('gender', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <label> Enter Password to Change (leave empty if there is no need for update) </label>
-                                    <input type="password" class="form-control form-control-user" id="password3" name="password3" placeholder="Password">
-                                    <?php echo form_error('password3', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                <label> Confirm Password (leave empty if previous field is empty) </label>
-                                    <input type="password" class="form-control form-control-user" id="password4" name="password4" placeholder="Repeat Password">
-                                    <?php echo form_error('password4', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="phone_number" name="phone_number" placeholder="Masukkan no hp" value="<?= $detail['phone_number'] ?>">
-                                    <?php echo form_error('phone_number', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= $detail['address'] ?>">
-                                    <?php echo form_error('address', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= $detail['city'] ?>">
-                                    <?php echo form_error('city', '<small class="text-danger ">', '</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="post_code" name="post_code" placeholder="Post Code" value="<?= $detail['post_code'] ?>">
-                                    <?php echo form_error('post_code', '<small class="text-danger ">', '</small>'); ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="profile_picture">Profile Picture</label><br>
