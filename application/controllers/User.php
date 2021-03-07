@@ -194,7 +194,7 @@ class User extends CI_Controller
         if ($user) {
             //cek password
             if (password_verify($password, $user['password'])) {
-                if ($user['is_active'] == 1) {
+                
                     $data = [
                         'email' => $user['email'],
                         'role_id' => $user['role_id'],
@@ -208,11 +208,6 @@ class User extends CI_Controller
                     } else {
                         redirect('user');
                     }
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Inactive account!Please check your email to activate</div>');
-                    redirect('user/login');
-                }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Wrong password!</div>');
